@@ -790,7 +790,7 @@
         <div class="form-group"><label>Check-out Date</label><input type="date"></div>
       </div>
       <div class="form-group"><label>Room Preference</label>
-        <select>
+        <select id="e-room">
           <option>Select room type</option>
           <option>Suite with Mountain View</option>
           <option>Family Room with Balcony</option>
@@ -1162,7 +1162,56 @@ function showNotif(msg){
   n.textContent=msg;n.classList.add('show');
   clearTimeout(nt);nt=setTimeout(function(){n.classList.remove('show');},3200);
 }
-function submitEnquiry(){showNotif("✉️ Enquiry sent! We'll reply within 30 Minutes.");}
+async function submitEnquiry(){
+
+  const enquiryData = {
+
+    name:
+      document.getElementById("e-fname").value.trim() +
+      " " +
+      document.getElementById("e-lname").value.trim(),
+
+    mobile:
+      document.getElementById("e-phone").value.trim(),
+
+    email:
+      document.getElementById("e-email").value.trim(),
+
+    check_in:
+      document.getElementById("e-checkin").value,
+
+    check_out:
+      document.getElementById("e-checkout").value,
+
+    room_type:
+      document.getElementById("e-room").value,
+
+    message:
+      document.getElementById("e-message").value.trim(),
+
+    status: "new"
+  };
+
+  const { error } = await supabaseClient
+    .from("enquiries")
+    .insert([enquiryData]);
+
+  if(error){
+    console.error(error);
+    showNotif("❌ Failed to send enquiry");
+    return;
+  }
+
+  showNotif("✅ Enquiry sent successfully");
+
+  document.getElementById("e-fname").value="";
+  document.getElementById("e-lname").value="";
+  document.getElementById("e-email").value="";
+  document.getElementById("e-phone").value="";
+  document.getElementById("e-checkin").value="";
+  document.getElementById("e-checkout").value="";
+  document.getElementById("e-message").value="";
+}
 
 // ══ DEFAULT DATES ══
 window.addEventListener('DOMContentLoaded',function(){
