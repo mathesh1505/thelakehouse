@@ -1337,27 +1337,205 @@ function searchRooms(){
   setTimeout(function(){document.getElementById('rooms').scrollIntoView({behavior:'smooth'});showNotif('✅ Rooms available for your dates!');},1100);
 }
 
-// ══ CHAT ══
-var bots=['Thank you! Could you share your preferred dates? 🏔️',
-  'All rooms include complimentary breakfast every morning!',
-  'Check-in is 12 PM and check-out is 10:30 AM.',
-  'We offer pick-up from Kodaikanal Road railway station.',
-  'All rooms have heater, Wi-Fi, hot water and room service.',
-  'We can arrange sightseeing, boating and trekking for you!',
-  'Please call +91 78450 66388 or click Book Now to reserve.'];
-var bi=0;
-function toggleChat(){document.getElementById('chat-window').classList.toggle('open');}
-function sendChat(){
-  var inp=document.getElementById('chat-inp');
-  var m=inp.value.trim();if(!m)return;
-  var msgs=document.getElementById('chat-msgs');
-  var u=document.createElement('div');u.className='cm user';u.textContent=m;msgs.appendChild(u);
-  inp.value='';msgs.scrollTop=msgs.scrollHeight;
-  setTimeout(function(){
-    var b=document.createElement('div');b.className='cm bot';b.textContent=bots[bi%bots.length];bi++;
-    msgs.appendChild(b);msgs.scrollTop=msgs.scrollHeight;
-  },800);
+// ══ SMART CHAT (no API needed — works everywhere) ══
+
+var chatRules = [
+  {
+    keys: ['hi','hello','hey','good morning','good evening','good afternoon','namaste','vanakkam'],
+    replies: [
+      "Hello! Welcome to The Lake House Kodaikanal 🏔️ How can I help you today?",
+      "Hi there! Great to hear from you. I'm here to help with rooms, bookings, activities and more 😊"
+    ]
+  },
+  {
+    keys: ['room','rooms','accommodation','stay','suite','deluxe','lake view','lakeview'],
+    replies: [
+      "We have 3 room types 🛏️\n\n• Lake View Room – Stunning views of Kodaikanal Lake\n• Deluxe Room – Spacious & cozy with premium amenities\n• Premium Suite – Our finest room with extra luxury\n\nAll rooms include complimentary breakfast, heater, Wi-Fi & hot water. Want to know pricing?",
+    ]
+  },
+  {
+    keys: ['price','cost','rate','rates','tariff','charge','how much','pricing','fees','fee'],
+    replies: [
+      "Our rooms start from ₹2,400/night 💰 Prices vary by room type and season. For exact price and availability, please call us at +91 78450 66388 or click the Book Now button!"
+    ]
+  },
+  {
+    keys: ['breakfast','food','meal','meals','dining','eat','menu'],
+    replies: [
+      "Yes! 🍳 Complimentary breakfast is included with every room — served fresh every morning. We also offer in-room service throughout the day."
+    ]
+  },
+  {
+    keys: ['checkin','check in','check-in','arrival','arrive'],
+    replies: [
+      "Check-in time is 12:00 PM (noon) ✅ Early check-in may be available on request — please call us at +91 78450 66388 to arrange."
+    ]
+  },
+  {
+    keys: ['checkout','check out','check-out','departure','leave'],
+    replies: [
+      "Check-out time is 10:30 AM 🕙 Late check-out can be requested subject to availability. Call us at +91 78450 66388 for help."
+    ]
+  },
+  {
+    keys: ['wifi','wi-fi','internet','network','connection'],
+    replies: [
+      "Yes, high-speed Wi-Fi is available in all rooms — complimentary 📶 No extra charges!"
+    ]
+  },
+  {
+    keys: ['heater','hot water','geyser','warm','cold','weather','temperature'],
+    replies: [
+      "All rooms are equipped with a heater and 24/7 hot water 🔥 Kodaikanal can get chilly, so you'll be perfectly comfortable!"
+    ]
+  },
+  {
+    keys: ['activity','activities','things to do','places','sightseeing','visit','tour','boating','trekking','trek'],
+    replies: [
+      "We can arrange amazing activities for you! 🎒\n\n• Boating on Kodaikanal Lake\n• Trekking trails\n• Sightseeing tours\n\nNearby: Coaker's Walk, Bear Shola Falls, Pillar Rocks, Bryant Park. Just ask us to arrange at +91 78450 66388!"
+    ]
+  },
+  {
+    keys: ['nearby','near','around','attraction','coaker','bear shola','pillar rock','bryant','lake','kodaikanal lake'],
+    replies: [
+      "The Lake House is perfectly located near all major attractions 📍\n\n• Kodaikanal Lake – 5 min\n• Coaker's Walk – 10 min\n• Bear Shola Falls – 15 min\n• Pillar Rocks – 20 min\n• Bryant Park – 10 min\n\nWe can arrange guided tours too!"
+    ]
+  },
+  {
+    keys: ['address','location','where','direction','directions','how to reach','reach','map'],
+    replies: [
+      "We're located at:\n📍 5/82 A2, Rifle Range Road, Naidupuram, Kodaikanal, Tamil Nadu 624101\n\nSearch 'The Lake House Kodaikanal' on Google Maps for directions. We also offer station pick-up — call +91 78450 66388!"
+    ]
+  },
+  {
+    keys: ['contact','phone','call','number','whatsapp','reach you','get in touch'],
+    replies: [
+      "You can reach us at:\n📞 +91 78450 66388\n🌐 thelakehousekodaikanal.in\n\nWe're available to answer calls and WhatsApp messages. We'd love to help you plan your stay! 😊"
+    ]
+  },
+  {
+    keys: ['book','booking','reserve','reservation','availability','available'],
+    replies: [
+      "To book your stay 🏨 please call us at +91 78450 66388 or use the Book Now button at the top of the page. We'll confirm availability and secure your room right away!"
+    ]
+  },
+  {
+    keys: ['amenities','facilities','feature','features','service','services','parking'],
+    replies: [
+      "Every room comes with 🌟\n\n• Complimentary breakfast\n• High-speed Wi-Fi\n• Room heater\n• 24/7 hot water\n• Daily housekeeping\n• In-room service\n• Free parking\n\nNeed more details? Call +91 78450 66388!"
+    ]
+  },
+  {
+    keys: ['review','rating','reviews','feedback','tripadvisor','google'],
+    replies: [
+      "We're rated 4.9/5 ⭐ based on 500+ verified guest reviews on Google and TripAdvisor! Our guests love the lake views, cozy rooms and warm hospitality 🙏"
+    ]
+  },
+  {
+    keys: ['pet','pets','dog','cat','animal'],
+    replies: [
+      "For pet policy details, please contact us directly at +91 78450 66388 — our team will be happy to guide you 🐾"
+    ]
+  },
+  {
+    keys: ['cancel','cancellation','refund'],
+    replies: [
+      "For our cancellation and refund policy, please call us at +91 78450 66388 or email via the contact form on the website. Our team will explain all options clearly 📋"
+    ]
+  },
+  {
+    keys: ['thank','thanks','thank you','thx','great','awesome','perfect','wonderful'],
+    replies: [
+      "You're most welcome! 🙏 We look forward to welcoming you at The Lake House Kodaikanal. Feel free to ask anything else!",
+      "Happy to help! 😊 We can't wait to host you. Is there anything else you'd like to know?"
+    ]
+  },
+  {
+    keys: ['bye','goodbye','see you','take care'],
+    replies: [
+      "Goodbye! 👋 We hope to see you soon at The Lake House Kodaikanal. Have a wonderful day!"
+    ]
+  }
+];
+
+function getBotReply(msg) {
+  var lower = msg.toLowerCase();
+  for (var i = 0; i < chatRules.length; i++) {
+    var rule = chatRules[i];
+    for (var j = 0; j < rule.keys.length; j++) {
+      if (lower.indexOf(rule.keys[j]) !== -1) {
+        var replies = rule.replies;
+        return replies[Math.floor(Math.random() * replies.length)];
+      }
+    }
+  }
+  // Default fallback
+  var fallbacks = [
+    "Great question! For the most accurate answer, please call us at +91 78450 66388 — our team is always happy to help 😊",
+    "I'd love to help with that! Please reach us at +91 78450 66388 or click Book Now for personalized assistance 🏔️",
+    "For that query, our team can best assist you — call +91 78450 66388 or WhatsApp us anytime!"
+  ];
+  return fallbacks[Math.floor(Math.random() * fallbacks.length)];
 }
+
+function toggleChat(){
+  var win = document.getElementById('chat-window');
+  win.classList.toggle('open');
+  if(win.classList.contains('open') && document.getElementById('chat-msgs').children.length === 0){
+    appendBotMsg("Welcome to The Lake House Kodaikanal! 🏔️ Ask me about rooms, pricing, activities, check-in, or anything else. How can I help you today?");
+  }
+}
+
+function appendBotMsg(text){
+  var msgs = document.getElementById('chat-msgs');
+  var b = document.createElement('div');
+  b.className = 'cm bot';
+  // Support line breaks in replies
+  b.style.whiteSpace = 'pre-line';
+  b.textContent = text;
+  msgs.appendChild(b);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function sendChat(){
+  var inp = document.getElementById('chat-inp');
+  var m = inp.value.trim();
+  if(!m) return;
+
+  var msgs = document.getElementById('chat-msgs');
+  var u = document.createElement('div');
+  u.className = 'cm user';
+  u.textContent = m;
+  msgs.appendChild(u);
+  inp.value = '';
+  msgs.scrollTop = msgs.scrollHeight;
+
+  // Typing indicator
+  var t = document.createElement('div');
+  t.className = 'cm bot';
+  t.id = 'typing-ind';
+  t.textContent = '...';
+  t.style.opacity = '0.5';
+  msgs.appendChild(t);
+  msgs.scrollTop = msgs.scrollHeight;
+
+  setTimeout(function(){
+    var ind = document.getElementById('typing-ind');
+    if(ind) ind.remove();
+    appendBotMsg(getBotReply(m));
+  }, 700);
+}
+
+// Enter key support
+document.addEventListener('DOMContentLoaded', function(){
+  var inp = document.getElementById('chat-inp');
+  if(inp){
+    inp.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); }
+    });
+  }
+});
+
 
 // ══ NOTIFICATION ══
 var nt;
