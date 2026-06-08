@@ -1310,7 +1310,7 @@ async function confirmBooking(){
   };
 
   const { data, error } = await supabaseClient
-    .from('Bookings')
+    .from('bookings')
     .insert([bookingData]);
 
   if(error){
