@@ -559,6 +559,72 @@
         rgba(245,243,238,0.35) 100%
     );
 }
+
+a.nearby-card {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ── LIGHTBOX ── */
+.lightbox-overlay {
+  display: none; position: fixed; inset: 0; z-index: 3000;
+  background: rgba(0,0,0,0.94); align-items: center; justify-content: center;
+  flex-direction: column;
+}
+.lightbox-overlay.active { display: flex; }
+.lightbox-close {
+  position: absolute; top: 18px; right: 22px; background: none; border: none;
+  color: #fff; font-size: 2rem; cursor: pointer; z-index: 10; line-height: 1;
+}
+.lightbox-close:hover { color: var(--gold); }
+.lightbox-main {
+  position: relative; display: flex; align-items: center;
+  justify-content: center; width: 100%; flex: 1;
+}
+.lightbox-img {
+  max-width: 88vw; max-height: 78vh; border-radius: 8px;
+  object-fit: contain; display: block;
+}
+.lightbox-video {
+  max-width: 88vw; max-height: 78vh; border-radius: 8px; display: block;
+}
+.lightbox-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+  color: #fff; font-size: 1.6rem; width: 46px; height: 46px; border-radius: 50%;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+}
+.lightbox-arrow:hover { background: var(--gold); color: var(--navy); }
+.lightbox-arrow.prev { left: 12px; }
+.lightbox-arrow.next { right: 12px; }
+.lightbox-label {
+  color: rgba(255,255,255,0.7); font-size: 0.82rem; letter-spacing: 0.1em;
+  text-transform: uppercase; margin-top: 14px;
+}
+.lightbox-counter {
+  color: rgba(255,255,255,0.4); font-size: 0.75rem; margin-top: 6px;
+}
+.lightbox-thumbs {
+  display: flex; gap: 8px; padding: 14px 20px; overflow-x: auto;
+  max-width: 100vw; flex-shrink: 0;
+}
+.lightbox-thumbs::-webkit-scrollbar { height: 4px; }
+.lightbox-thumbs::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+.lightbox-thumb {
+  width: 60px; height: 48px; object-fit: cover; border-radius: 5px;
+  cursor: pointer; opacity: 0.5; border: 2px solid transparent;
+  flex-shrink: 0; transition: opacity 0.2s, border-color 0.2s;
+}
+.lightbox-thumb.active { opacity: 1; border-color: var(--gold); }
+.lightbox-thumb-video {
+  width: 60px; height: 48px; border-radius: 5px; cursor: pointer;
+  background: var(--navy); border: 2px solid transparent;
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.6); font-size: 1.2rem; flex-shrink: 0;
+  opacity: 0.5; transition: opacity 0.2s, border-color 0.2s;
+}
+.lightbox-thumb-video.active { opacity: 1; border-color: var(--gold); color: var(--gold); }
 </style>
 </head>
 <body>
@@ -704,9 +770,9 @@
   <div class="rooms-grid">
 
     <!-- Room 1: Suite with Mountain View -->
-    <div class="room-card" onclick="openBookingRoom('Suite with Mountain View')">
+    <div class="room-card" >
       <div class="room-img">
-        <div class="room-slideshow" id="slide-suite">
+        <div class="room-slideshow" id="slide-suite" onclick="openRoomLightbox('suite', event)">
          <img src="images/suite-1.webp" class="slide active" alt="Suite with Mountain View" />
          <img src="images/suite-2.webp" class="slide" alt="Suite with Mountain View" />
          <img src="images/suite-3.webp" class="slide" alt="Suite with Mountain View" />
@@ -741,15 +807,15 @@
         </div>
         <div class="room-footer">
           <div class="room-price">₹2,900 <sub>/ night</sub></div>
-          <button class="btn-room">Book Now</button>
+          <button class="btn-room" onclick="openBookingRoom('Suite with Mountain View')">Book Now</button>
         </div>
       </div>
     </div>
 
     <!-- Room 2: Family Room with Balcony -->
-    <div class="room-card" onclick="openBookingRoom('Family Room with Balcony')">
+    <div class="room-card" >
       <div class="room-img">
-        <div class="room-slideshow" id="slide-family">
+        <div class="room-slideshow" id="slide-family" onclick="openRoomLightbox('family', event)">
           <img src="images/family-1.webp" class="slide active" alt="Family Room with Balcony" />
           <img src="images/family-2.webp" class="slide" alt="Family Room with Balcony" />
           <img src="images/family-3.webp" class="slide" alt="Family Room with Balcony" />
@@ -783,15 +849,15 @@
         </div>
         <div class="room-footer">
           <div class="room-price">₹2,400 <sub>/ night</sub></div>
-          <button class="btn-room">Book Now</button>
+          <button class="btn-room" onclick="openBookingRoom('Family Room with Balcony')">Book Now</button>
         </div>
       </div>
     </div>
 
     <!-- Room 3: Quadruple Room with Balcony -->
-    <div class="room-card" onclick="openBookingRoom('Quadruple Room with Balcony')">
+    <div class="room-card" >
      <div class="room-img">
-        <div class="room-slideshow" id="slide-quad">
+        <div class="room-slideshow" id="slide-quad" onclick="openRoomLightbox('quad', event)">
           <img src="images/quad-1.webp" class="slide active" alt="Quadruple Room with Balcony" />
           <img src="images/quad-2.webp" class="slide" alt="Quadruple Room with Balcony" />
           <img src="images/quad-3.webp" class="slide" alt="Quadruple Room with Balcony" />
@@ -822,7 +888,7 @@
         </div>
         <div class="room-footer">
           <div class="room-price">₹3,900 <sub>/ night</sub></div>
-          <button class="btn-room">Book Now</button>
+          <button class="btn-room" onclick="openBookingRoom('Quadruple Room with Balcony')">Book Now</button>
         </div>
       </div>
     </div>
@@ -892,13 +958,34 @@
   <h2 class="section-title">Nearby Attractions</h2>
   <p class="section-subtitle">The best of Kodaikanal is right at your doorstep from The Lake House.</p>
   <div class="nearby-grid">
-    <div class="nearby-card"><div class="nearby-icon"><i class="ti ti-waterfall"></i></div><div><div class="nearby-name">Vattakanal Waterfalls</div><span class="nearby-dist"><i class="ti ti-map-pin" style="font-size:0.72rem;"></i> 6.4 KM</span></div></div>
-    <div class="nearby-card"><div class="nearby-icon"><i class="ti ti-ripple"></i></div><div><div class="nearby-name">Kodaikanal Lake</div><span class="nearby-dist"><i class="ti ti-map-pin" style="font-size:0.72rem;"></i> 4.0 KM</span></div></div>
-    <div class="nearby-card"><div class="nearby-icon"><i class="ti ti-walk"></i></div><div><div class="nearby-name">Coaker's Walk</div><span class="nearby-dist"><i class="ti ti-map-pin" style="font-size:0.72rem;"></i> 3.5 KM</span></div></div>
-    <div class="nearby-card"><div class="nearby-icon"><i class="ti ti-trees"></i></div><div><div class="nearby-name">Pine Forest</div><span class="nearby-dist"><i class="ti ti-map-pin" style="font-size:0.72rem;"></i> 10 KM</span></div></div>
-    <div class="nearby-card"><div class="nearby-icon"><i class="ti ti-plant"></i></div><div><div class="nearby-name">Bryant Park</div><span class="nearby-dist"><i class="ti ti-map-pin" style="font-size:0.72rem;"></i> 3.3 KM</span></div></div>
-    <div class="nearby-card"><div class="nearby-icon"><i class="ti ti-cave"></i></div><div><div class="nearby-name">Guna Cave</div><span class="nearby-dist"><i class="ti ti-map-pin" style="font-size:0.72rem;"></i> 8.6 KM</span></div></div>
-    <div class="nearby-card"><div class="nearby-icon"><i class="ti ti-eye"></i></div><div><div class="nearby-name">Lake Viewpoint</div><span class="nearby-dist"><i class="ti ti-map-pin" style="font-size:0.72rem;"></i> 4.6 KM</span></div></div>
+    <a href="https://maps.google.com/?q=Vattakanal+Waterfalls+Kodaikanal" target="_blank" class="nearby-card">
+      <div class="nearby-icon"><i class="ti ti-waterfall"></i></div>
+      <div><div class="nearby-name">Vattakanal Waterfalls</div><span class="nearby-dist"><i class="ti ti-map-pin" style="font-size:0.72rem;"></i> 6.4 KM</span></div>
+    </a>
+    <a href="https://maps.google.com/?q=Kodaikanal+Lake" target="_blank" class="nearby-card">
+      <div class="nearby-icon"><i class="ti ti-ripple"></i></div>
+      <div><div class="nearby-name">Kodaikanal Lake</div><span class="nearby-dist"><i class="ti ti-map-pin" style="font-size:0.72rem;"></i> 4.0 KM</span></div>
+    </a>
+    <a href="https://maps.google.com/?q=Coakers+Walk+Kodaikanal" target="_blank" class="nearby-card">
+      <div class="nearby-icon"><i class="ti ti-walk"></i></div>
+      <div><div class="nearby-name">Coaker's Walk</div><span class="nearby-dist"><i class="ti ti-map-pin" style="font-size:0.72rem;"></i> 3.5 KM</span></div>
+    </a>
+    <a href="https://maps.google.com/?q=Pine+Forest+Kodaikanal" target="_blank" class="nearby-card">
+      <div class="nearby-icon"><i class="ti ti-trees"></i></div>
+      <div><div class="nearby-name">Pine Forest</div><span class="nearby-dist"><i class="ti ti-map-pin" style="font-size:0.72rem;"></i> 10 KM</span></div>
+    </a>
+    <a href="https://maps.google.com/?q=Bryant+Park+Kodaikanal" target="_blank" class="nearby-card">
+      <div class="nearby-icon"><i class="ti ti-plant"></i></div>
+      <div><div class="nearby-name">Bryant Park</div><span class="nearby-dist"><i class="ti ti-map-pin" style="font-size:0.72rem;"></i> 3.3 KM</span></div>
+    </a>
+    <a href="https://maps.google.com/?q=Guna+Cave+Kodaikanal" target="_blank" class="nearby-card">
+      <div class="nearby-icon"><i class="ti ti-cave"></i></div>
+      <div><div class="nearby-name">Guna Cave</div><span class="nearby-dist"><i class="ti ti-map-pin" style="font-size:0.72rem;"></i> 8.6 KM</span></div>
+    </a>
+    <a href="https://maps.google.com/?q=Lake+View+Point+Kodaikanal" target="_blank" class="nearby-card">
+      <div class="nearby-icon"><i class="ti ti-eye"></i></div>
+      <div><div class="nearby-name">Upper Lake Viewpoint</div><span class="nearby-dist"><i class="ti ti-map-pin" style="font-size:0.72rem;"></i> 4.6 KM</span></div>
+    </a>
   </div>
 </section>
 
@@ -1155,6 +1242,22 @@
     <button class="chat-send" onclick="sendChat()"><i class="ti ti-send"></i></button>
   </div>
 </div>
+ 
+<!-- LIGHTBOX -->
+<div class="lightbox-overlay" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">&#x2715;</button>
+  <div class="lightbox-main">
+    <button class="lightbox-arrow prev" onclick="lightboxNav(-1)"><i class="ti ti-arrow-left"></i></button>
+    <img class="lightbox-img" id="lb-img" src="" alt="" />
+    <div id="lb-video-wrap" style="display:none;">
+      <video class="lightbox-video" id="lb-video" controls></video>
+    </div>
+    <button class="lightbox-arrow next" onclick="lightboxNav(1)"><i class="ti ti-arrow-right"></i></button>
+  </div>
+  <div class="lightbox-label" id="lb-label"></div>
+  <div class="lightbox-counter" id="lb-counter"></div>
+  <div class="lightbox-thumbs" id="lb-thumbs"></div>
+</div>
 
 <script>
 // ══ SLIDESHOW — 4 slides, 5s, NO progress bar ══
@@ -1205,8 +1308,6 @@ function toggleTheme(){
 // ══ MOBILE MENU ══
 function toggleMenu(){document.getElementById('mobile-menu').classList.toggle('open');}
 
-// ══ LANGUAGE ══
-function changeLang(){showNotif('🌐 Language changed!');}
 
 // ══ BOOKING ══
 var selRoom='';
@@ -1677,6 +1778,174 @@ const supabaseClient = supabase.createClient(
     }
   }, { passive: true });
 });
+
+// ══ LIGHTBOX / GALLERY ══
+var galleryItems = [
+  { type: 'image', src: 'images/nightview.webp',      label: 'Night View' },
+  { type: 'image', src: 'images/exterior.webp',       label: 'Exterior' },
+  { type: 'image', src: 'images/bedroom.webp',        label: 'Bedroom' },
+  { type: 'image', src: 'images/reception.webp',      label: 'Reception' },
+  { type: 'image', src: 'images/mountainview-2.webp', label: 'Mountain View' },
+  { type: 'image', src: 'images/family-1.webp',       label: 'Bedroom' },
+  { type: 'image', src: 'images/family-4.webp',       label: 'Bedroom' },
+  { type: 'image', src: 'images/family-3.webp',       label: 'Bedroom' },
+  { type: 'image', src: 'images/family-5.webp',       label: 'Balcony View' },
+  { type: 'image', src: 'images/family-6.webp',       label: 'Restroom' },
+  { type: 'image', src: 'images/quad-1.webp',         label: 'Bedroom' },
+  { type: 'image', src: 'images/quad-2.webp',         label: 'Bedroom' },
+  { type: 'image', src: 'images/quad-3.webp',         label: 'Restroom' },
+  { type: 'image', src: 'images/suite-1.webp',        label: 'Bedroom' },
+  { type: 'image', src: 'images/suite-2.webp',        label: 'Bedroom' },
+  { type: 'image', src: 'images/suite-3.webp',        label: 'Bedroom' },
+  { type: 'image', src: 'images/suite-4.webp',        label: 'Bedroom' },
+  { type: 'image', src: 'images/suite-6.webp',        label: 'Bedroom' },
+  { type: 'image', src: 'images/suite-7.webp',        label: 'Restroom' },
+  { type: 'image', src: 'images/balconyview-1.webp',  label: 'Balconyview' },
+  { type: 'image', src: 'images/balconyview-2.webp',  label: 'Balconyview' },
+  { type: 'video', src: 'images/tlh-video1.mp4',      label: 'video' },
+  { type: 'video', src: 'images/tlh-video2.mp4',      label: 'video' },
+];
+
+var lbIndex = 0;
+
+function openGallery(index) {
+  lbIndex = index || 0;
+  buildThumbs();
+  showLightboxItem(lbIndex);
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+  var vid = document.getElementById('lb-video');
+  vid.pause(); vid.src = '';
+}
+
+function buildThumbs() {
+  var container = document.getElementById('lb-thumbs');
+  container.innerHTML = '';
+  galleryItems.forEach(function(item, i) {
+    var el;
+    if (item.type === 'video') {
+      el = document.createElement('div');
+      el.className = 'lightbox-thumb-video';
+      el.innerHTML = '<i class="ti ti-player-play"></i>';
+    } else {
+      el = document.createElement('img');
+      el.className = 'lightbox-thumb';
+      el.src = item.src;
+      el.alt = item.label;
+    }
+    el.onclick = (function(idx){ return function(){ showLightboxItem(idx); }; })(i);
+    container.appendChild(el);
+  });
+}
+
+function showLightboxItem(index) {
+  lbIndex = (index + galleryItems.length) % galleryItems.length;
+  var item = galleryItems[lbIndex];
+  var img  = document.getElementById('lb-img');
+  var vidWrap = document.getElementById('lb-video-wrap');
+  var vid  = document.getElementById('lb-video');
+
+  if (item.type === 'video') {
+    img.style.display = 'none';
+    vidWrap.style.display = 'block';
+    vid.src = item.src;
+  } else {
+    img.style.display = 'block';
+    vidWrap.style.display = 'none';
+    vid.pause(); vid.src = '';
+    img.src = item.src;
+    img.alt = item.label;
+  }
+
+  document.getElementById('lb-label').textContent = item.label;
+  document.getElementById('lb-counter').textContent = (lbIndex + 1) + ' / ' + galleryItems.length;
+
+  // Update thumb highlights
+  var thumbs = document.getElementById('lb-thumbs').children;
+  for (var i = 0; i < thumbs.length; i++) {
+    thumbs[i].classList.toggle('active', i === lbIndex);
+  }
+
+  // Scroll active thumb into view
+  if (thumbs[lbIndex]) {
+    thumbs[lbIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  }
+}
+
+function lightboxNav(dir) {
+  showLightboxItem(lbIndex + dir);
+}
+
+// Close on backdrop click
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this) closeLightbox();
+});
+
+// Keyboard navigation
+document.addEventListener('keydown', function(e) {
+  var lb = document.getElementById('lightbox');
+  if (!lb.classList.contains('active')) return;
+  if (e.key === 'ArrowLeft')  lightboxNav(-1);
+  if (e.key === 'ArrowRight') lightboxNav(1);
+  if (e.key === 'Escape')     closeLightbox();
+});
+
+// ══ ROOM IMAGE ZOOM ══
+var roomImages = {
+  suite:  ['images/suite-1.webp','images/suite-2.webp','images/suite-3.webp','images/suite-4.webp','images/suite-5.webp','images/suite-6.webp','images/suite-7.webp'],
+  family: ['images/family-1.webp','images/family-2.webp','images/family-3.webp','images/family-4.webp','images/family-5.webp','images/family-6.webp'],
+  quad:   ['images/quad-1.webp','images/quad-2.webp','images/quad-3.webp']
+};
+
+function openRoomLightbox(roomKey, event) {
+  // Don't trigger if arrow buttons or dots were clicked
+  if (event.target.closest('.slide-prev, .slide-next, .slide-dots, .slide-dot')) return;
+
+  var images = roomImages[roomKey];
+  // Find which slide is currently active
+  var slideshow = document.getElementById('slide-' + roomKey);
+  var activeSlide = slideshow.querySelector('.slide.active');
+  var allSlides = slideshow.querySelectorAll('.slide');
+  var startIndex = [...allSlides].indexOf(activeSlide);
+
+  // Build galleryItems temporarily for the lightbox
+  var items = images.map(function(src) {
+    return { type: 'image', src: src, label: '' };
+  });
+
+  // Temporarily override galleryItems and open
+  var original = galleryItems;
+  galleryItems = items;
+  openGallery(startIndex);
+
+  // Restore original galleryItems when lightbox closes
+  var closeBtn = document.getElementById('lightbox');
+  function restoreOnClose() {
+    if (!closeBtn.classList.contains('active')) {
+      galleryItems = original;
+      closeBtn.removeEventListener('click', checkClose);
+      document.removeEventListener('keydown', checkEsc);
+    }
+  }
+  function checkClose(e) { setTimeout(restoreOnClose, 100); }
+  function checkEsc(e) { if(e.key === 'Escape') setTimeout(restoreOnClose, 100); }
+  closeBtn.addEventListener('click', checkClose);
+  document.addEventListener('keydown', checkEsc);
+
+  // Also patch closeLightbox to restore
+  var origClose = window._origCloseLightbox || closeLightbox;
+  window._origCloseLightbox = origClose;
+  window.closeLightbox = function() {
+    origClose();
+    galleryItems = original;
+    window.closeLightbox = origClose;
+  };
+}
 </script>
 </body>
 </html>
