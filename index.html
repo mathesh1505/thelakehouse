@@ -740,20 +740,33 @@ a.nearby-card {
       <div class="field-group"><label>Check-in</label><input type="date" id="checkin"></div>
       <div class="field-group"><label>Check-out</label><input type="date" id="checkout"></div>
       <div class="field-group"><label>Guests</label>
-        <select><option>1 Guest</option><option selected>2 Guests</option><option>3 Guests</option><option>4 Guests</option></select>
+        <select id="bar-guests">
+          <option>1 Guest</option>
+          <option selected>2 Guests</option>
+          <option>3 Guests</option>
+          <option>4 Guests</option>
+        </select>
       </div>
       <div class="field-group"><label>Room Type</label>
-        <select>
-          <option>Any Room</option>
+        <select id="bar-room">
+          <option value="any">Any Room</option>
           <option>Suite with Mountain View</option>
           <option>Family Room with Balcony</option>
           <option>Quadruple Room with Balcony</option>
         </select>
       </div>
       <div class="field-group"><label>&nbsp;</label>
-        <button class="btn-search" onclick="searchRooms()"><i class="ti ti-search"></i> Search</button>
+        <button class="btn-search" onclick="checkAvailability()"><i class="ti ti-search"></i> Check Availability</button>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- AVAILABILITY RESULTS -->
+<div id="avail-results" style="display:none; background:var(--cream-dark); border-top:1px solid var(--border); padding:1.5rem 5%;">
+  <div style="max-width:960px; margin:0 auto;">
+    <div id="avail-header" style="font-family:'Playfair Display',serif; font-size:1.1rem; color:var(--text-dark); margin-bottom:1rem;"></div>
+    <div id="avail-cards" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1rem;"></div>
   </div>
 </div>
 
@@ -1108,13 +1121,13 @@ a.nearby-card {
     <div>
       <div class="footer-col-title">Nearby Places</div>
       <ul class="footer-links">
-        <li><a href="https://maps.app.goo.gl/aMSgV5rJzkdBr65C8" target="_blank">Vattakanal Waterfalls<span class="dist-badge">6.4 KM</span></a></li>
-        <li><a href="https://maps.app.goo.gl/aMSgV5rJzkdBr65C8" target="_blank">Kodaikanal Lake<span class="dist-badge">4.0 KM</span></a></li>
-        <li><a href="https://maps.app.goo.gl/aMSgV5rJzkdBr65C8" target="_blank">Coaker's Walk<span class="dist-badge">3.5 KM</span></a></li>
-        <li><a href="https://maps.app.goo.gl/aMSgV5rJzkdBr65C8" target="_blank">Pine Forest<span class="dist-badge">10 KM</span></a></li>
-        <li><a href="https://maps.app.goo.gl/aMSgV5rJzkdBr65C8" target="_blank">Bryant Park<span class="dist-badge">3.3 KM</span></a></li>
-        <li><a href="https://maps.app.goo.gl/aMSgV5rJzkdBr65C8" target="_blank">Guna Cave<span class="dist-badge">8.6 KM</span></a></li>
-        <li><a href="https://maps.app.goo.gl/aMSgV5rJzkdBr65C8" target="_blank">Lake Viewpoint<span class="dist-badge">4.6 KM</span></a></li>
+        <li><a href="https://maps.google.com/?q=Vattakanal+Waterfalls+Kodaikanal" target="_blank">Vattakanal Waterfalls<span class="dist-badge">6.4 KM</span></a></li>
+        <li><a href="https://maps.google.com/?q=Kodaikanal+Lake" target="_blank">Kodaikanal Lake<span class="dist-badge">4.0 KM</span></a></li>
+        <li><a href="https://maps.google.com/?q=Coakers+Walk+Kodaikanal" target="_blank">Coaker's Walk<span class="dist-badge">3.5 KM</span></a></li>
+        <li><a href="https://maps.google.com/?q=Pine+Forest+Kodaikanal" target="_blank">Pine Forest<span class="dist-badge">10 KM</span></a></li>
+        <li><a href="https://maps.google.com/?q=Bryant+Park+Kodaikanal"  target="_blank">Bryant Park<span class="dist-badge">3.3 KM</span></a></li>
+        <li><a href="https://maps.google.com/?q=Guna+Cave+Kodaikanal" target="_blank">Guna Cave<span class="dist-badge">8.6 KM</span></a></li>
+        <li><a href="https://maps.google.com/?q=Lake+View+Point+Kodaikanal" target="_blank">Lake Viewpoint<span class="dist-badge">4.6 KM</span></a></li>
       </ul>
     </div>
     <div>
@@ -1965,6 +1978,130 @@ function openRoomLightbox(roomKey, event) {
     }
   }, { passive: true });
 })();
+
+// ══ AVAILABILITY CHECK ══
+var SUPABASE_URL = 'https://fjubkzxcfipybqchgqmy.supabase.co';
+var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZqdWJrenhjZmlweWJxY2hncW15Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2NTAyMzEsImV4cCI6MjA5NjIyNjIzMX0.BMc73GWbMwi6_U9t_YLbh6hvwzSqkVtH2FrB-rKRj-w';
+;
+
+var ROOM_INFO = {
+  'suite with mountain view':    { label: 'Suite with Mountain View',    icon: 'ti-mountain', guests: 3 },
+  'family room with balcony':    { label: 'Family Room with Balcony',    icon: 'ti-home-2',   guests: 3 },
+  'quadruple room with balcony': { label: 'Quadruple Room with Balcony', icon: 'ti-users',    guests: 4 }
+};
+
+async function checkAvailability() {
+  var checkin    = document.getElementById('checkin').value;
+  var checkout   = document.getElementById('checkout').value;
+  var roomFilter = document.getElementById('bar-room').value.toLowerCase();
+
+  if (!checkin || !checkout) { alert('Please select check-in and check-out dates.'); return; }
+  if (new Date(checkout) <= new Date(checkin)) { alert('Check-out must be after check-in.'); return; }
+
+  var btn = document.querySelector('.btn-search');
+  btn.innerHTML = '<i class="ti ti-loader-2"></i> Checking...';
+  btn.disabled = true;
+
+  try {
+    // Fetch all rooms
+    var roomsRes = await fetch(SUPABASE_URL + '/rest/v1/rooms?select=*', {
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
+    });
+    var rooms = await roomsRes.json();
+
+    // Fetch bookings that OVERLAP with selected dates from bookings table
+    // Overlap condition: booking checkin < our checkout AND booking checkout > our checkin
+    var bookingsRes = await fetch(
+      SUPABASE_URL + '/rest/v1/bookings?select=room_type,check_in,check_out&check_in=lt.' + checkout + '&check_out=gt.' + checkin,
+      { headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY } }
+    );
+    var bookings = await bookingsRes.json();
+
+    // Count how many bookings exist per room in that date range
+    var bookedCountPerRoom = {};
+    bookings.forEach(function(b) {
+      var key = (b.room_type || '').toLowerCase();
+      bookedCountPerRoom[key] = (bookedCountPerRoom[key] || 0) + 1;
+    });
+
+    // Filter by selected room type
+    if (roomFilter !== 'any' && roomFilter !== 'any room') {
+      rooms = rooms.filter(function(r) { return r.room_name.toLowerCase() === roomFilter; });
+    }
+
+    var checkinDate  = new Date(checkin);
+    var checkoutDate = new Date(checkout);
+    var nights = Math.round((checkoutDate - checkinDate) / (1000*60*60*24));
+
+    var container = document.getElementById('avail-cards');
+    var header    = document.getElementById('avail-header');
+    container.innerHTML = '';
+
+    var checkinStr  = new Date(checkin).toLocaleDateString('en-IN', { day:'numeric', month:'short' });
+    var checkoutStr = new Date(checkout).toLocaleDateString('en-IN', { day:'numeric', month:'short' });
+    header.innerHTML = 'Showing rooms for <strong>' + checkinStr + ' – ' + checkoutStr + '</strong> &nbsp;·&nbsp; ' + nights + ' night' + (nights > 1 ? 's' : '');
+
+    rooms.forEach(function(room) {
+      var key            = room.room_name.toLowerCase();
+      var info           = ROOM_INFO[key] || { label: room.room_name, icon: 'ti-bed', guests: 2 };
+      var bookedCount    = bookedCountPerRoom[key] || 0;
+      var availableRooms = Math.max(0, room.total_rooms - bookedCount);
+
+      var totalPrice    = '₹' + (room.price * nights).toLocaleString('en-IN');
+      var pricePerNight = '₹' + Number(room.price).toLocaleString('en-IN');
+
+      var badge, badgeStyle, borderColor;
+      if (availableRooms === 0) {
+        badge       = '✖ Sold Out';
+        badgeStyle  = 'background:rgba(220,53,69,0.1);color:#dc3545;border:1px solid rgba(220,53,69,0.25);';
+        borderColor = 'rgba(220,53,69,0.2)';
+      } else if (availableRooms === 1) {
+        badge       = '⚠ Only 1 Room Left!';
+        badgeStyle  = 'background:rgba(255,140,0,0.1);color:#e67e00;border:1px solid rgba(255,140,0,0.3);';
+        borderColor = 'rgba(255,140,0,0.3)';
+      } else {
+        badge       = '✔ ' + availableRooms + ' Rooms Available';
+        badgeStyle  = 'background:rgba(46,160,67,0.12);color:#2ea043;border:1px solid rgba(46,160,67,0.3);';
+        borderColor = 'rgba(46,160,67,0.3)';
+      }
+
+      var bookBtn = availableRooms > 0
+        ? '<button onclick="openBookingRoom(\'' + info.label + '\')" style="background:var(--gold);color:var(--navy);border:none;padding:10px 18px;border-radius:8px;font-family:Jost,sans-serif;font-weight:700;font-size:0.82rem;cursor:pointer;text-transform:uppercase;letter-spacing:0.05em;white-space:nowrap;">Book Now</button>'
+        : '<button disabled style="background:var(--cream-dark);color:var(--text-light);border:1px solid var(--border);padding:10px 18px;border-radius:8px;font-family:Jost,sans-serif;font-weight:700;font-size:0.82rem;cursor:not-allowed;text-transform:uppercase;white-space:nowrap;">Unavailable</button>';
+
+      var card = document.createElement('div');
+      card.style.cssText = 'background:var(--card-bg);border:1px solid ' + borderColor + ';border-radius:12px;padding:1.3rem;display:flex;flex-direction:column;gap:0.8rem;';
+      card.innerHTML =
+        '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">' +
+          '<div style="font-family:Playfair Display,serif;font-size:1rem;font-weight:700;color:var(--text-dark);">' + info.label + '</div>' +
+          '<span style="font-size:0.7rem;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap;flex-shrink:0;' + badgeStyle + '">' + badge + '</span>' +
+        '</div>' +
+        '<div style="display:flex;gap:1.2rem;font-size:0.8rem;color:var(--text-light);">' +
+          '<span><i class="ti ti-users"></i> Max ' + info.guests + ' guests</span>' +
+          '<span><i class="ti ti-egg-fried"></i> Breakfast included</span>' +
+        '</div>' +
+        '<div style="display:flex;justify-content:space-between;align-items:center;">' +
+          '<div>' +
+            '<div style="font-size:0.8rem;color:var(--text-light);">' + pricePerNight + ' / night</div>' +
+            '<div style="font-size:1.05rem;font-weight:700;color:var(--gold);">' + totalPrice + ' total</div>' +
+          '</div>' +
+          bookBtn +
+        '</div>';
+
+      container.appendChild(card);
+    });
+
+    document.getElementById('avail-results').style.display = 'block';
+    document.getElementById('avail-results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+  } catch(err) {
+    alert('Could not fetch availability. Please try again.');
+    console.error(err);
+  }
+
+  btn.innerHTML = '<i class="ti ti-search"></i> Check Availability';
+  btn.disabled = false;
+}
 </script>
 </body>
 </html>
