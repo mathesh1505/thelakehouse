@@ -10,6 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <style>
   :root {
     --gold:#C9A84C;--gold-dark:#8B6914;
@@ -1711,27 +1712,113 @@ async function confirmBooking(){
     adults:         parseInt(document.getElementById('b-guests').value) || 1,
     children:       0,
     amount:         totalAmount,
-    payment_status: 'pending',
     booking_status: 'confirmed'
   };
 
-  const { data, error } = await supabaseClient
-    .from('bookings')
-    .insert([bookingData]);
+  const payBtn = document.querySelector('#step-2-content .btn-submit[onclick="confirmBooking()"]');
+  if (payBtn) { payBtn.disabled = true; payBtn.textContent = 'Processing…'; }
 
-  if (error) {
-    console.error(error);
-    showNotif('❌ Failed to save booking. Please try again.');
-    return;
+  try {
+    // ── STEP A: ask the backend to create a Razorpay order.
+    // The key_secret is used only on the server — never sent here.
+    const orderRes = await fetch(BACKEND_URL + '/api/create-order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ amount: totalAmount, booking: bookingData })
+    });
+    const order = await orderRes.json();
+
+    if (!orderRes.ok || !order.order_id) {
+      showNotif('❌ Could not start payment. Please try again.');
+      if (payBtn) { payBtn.disabled = false; payBtn.textContent = 'Confirm & Pay →'; }
+      return;
+    }
+
+    // ── STEP B: open Razorpay checkout ──
+    const rzp = new Razorpay({
+      key: order.key_id, // public key only
+      amount: order.amount,
+      currency: order.currency,
+      order_id: order.order_id,
+      name: 'The Lake House Kodaikanal',
+      description: room,
+      prefill: {
+        name: bookingData.guest_name,
+        email: bookingData.email,
+        contact: bookingData.mobile
+      },
+      theme: { color: '#C9A84C' },
+      handler: async function (response) {
+        // ── STEP C: send the payment response to the backend to verify
+        // the signature with the key_secret. Only on success do we treat
+        // the booking as paid.
+        try {
+          const verifyRes = await fetch(BACKEND_URL + '/api/verify-payment', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              razorpay_order_id:   response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature:  response.razorpay_signature,
+              booking: bookingData
+            })
+          });
+          const verifyData = await verifyRes.json();
+
+          if (!verifyData.verified) {
+            showNotif('❌ Payment verification failed. Please contact us before retrying.');
+            if (payBtn) { payBtn.disabled = false; payBtn.textContent = 'Confirm & Pay →'; }
+            return;
+          }
+
+          // If the backend doesn't have a Supabase service key configured,
+          // it won't have saved the booking — fall back to saving it here
+          // (with payment_status already confirmed as paid).
+          if (!verifyData.db_saved) {
+            await supabaseClient.from('bookings').insert([{
+              ...bookingData,
+              payment_status: 'paid',
+              razorpay_order_id:   response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id
+            }]);
+          }
+
+          document.getElementById('step-2-content').style.display = 'none';
+          document.getElementById('step-3-content').style.display = 'block';
+          document.getElementById('step2').classList.add('done');
+          document.getElementById('step3').classList.add('active', 'done');
+          document.getElementById('booking-id').textContent =
+            (verifyData.booking && verifyData.booking.id) ? 'LH-' + verifyData.booking.id
+                                                            : 'LH-' + Math.floor(100000 + Math.random() * 900000);
+
+          showNotif('🎉 Booking Confirmed & Paid!');
+        } catch (err) {
+          console.error(err);
+          showNotif('❌ Could not verify payment. Please contact us.');
+        } finally {
+          if (payBtn) { payBtn.disabled = false; payBtn.textContent = 'Confirm & Pay →'; }
+        }
+      },
+      modal: {
+        ondismiss: function () {
+          if (payBtn) { payBtn.disabled = false; payBtn.textContent = 'Confirm & Pay →'; }
+        }
+      }
+    });
+
+    rzp.on('payment.failed', function (resp) {
+      console.error(resp.error);
+      showNotif('❌ Payment failed: ' + resp.error.description);
+      if (payBtn) { payBtn.disabled = false; payBtn.textContent = 'Confirm & Pay →'; }
+    });
+
+    rzp.open();
+
+  } catch (err) {
+    console.error(err);
+    showNotif('❌ Something went wrong while starting payment.');
+    if (payBtn) { payBtn.disabled = false; payBtn.textContent = 'Confirm & Pay →'; }
   }
-
-  document.getElementById('step-2-content').style.display = 'none';
-  document.getElementById('step-3-content').style.display = 'block';
-  document.getElementById('step2').classList.add('done');
-  document.getElementById('step3').classList.add('active', 'done');
-  document.getElementById('booking-id').textContent = 'LH-' + Math.floor(100000 + Math.random() * 900000);
-
-  showNotif('🎉 Booking Confirmed!');
 }
 // ══ SEARCH ══
 function searchRooms(){
@@ -2384,6 +2471,9 @@ function openRoomLightbox(roomKey, event) {
 })();
 
 // ══ AVAILABILITY CHECK ══
+// URL of your Razorpay backend (server.js). Update for production.
+var BACKEND_URL = 'http://localhost:4000';
+
 var SUPABASE_URL = 'https://fjubkzxcfipybqchgqmy.supabase.co';
 var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZqdWJrenhjZmlweWJxY2hncW15Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2NTAyMzEsImV4cCI6MjA5NjIyNjIzMX0.BMc73GWbMwi6_U9t_YLbh6hvwzSqkVtH2FrB-rKRj-w';
 ;
