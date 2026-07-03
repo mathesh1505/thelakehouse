@@ -4,6 +4,7 @@ const cors = require('cors');
 const crypto = require('crypto');
 const Razorpay = require('razorpay');
 const { createClient } = require('@supabase/supabase-js');
+const { notifyGuest } = require('./notifications');
 
 const app = express();
 app.use(express.json());
@@ -115,6 +116,19 @@ app.post('/api/verify-payment', async (req, res) => {
         return res.json({ verified: true, db_saved: false, error: error.message });
       }
       savedBooking = data;
+       // ── Send email + WhatsApp confirmation to guest ──
+      await notifyGuest({
+        guestName:   savedBooking.guest_name,
+        guestEmail:  savedBooking.email,
+        guestPhone:  savedBooking.mobile,
+        bookingRef:  'LH-' + savedBooking.id,
+        roomType:    savedBooking.room_type,
+        checkIn:     savedBooking.check_in,
+        checkOut:    savedBooking.check_out,
+        rooms:       1,
+        totalAmount: savedBooking.amount,
+        paymentId:   razorpay_payment_id,
+      });
     }
 
     res.json({ verified: true, db_saved: !!savedBooking, booking: savedBooking });
