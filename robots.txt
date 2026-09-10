@@ -1,0 +1,11 @@
+# The Lake House Kodaikanal — robots.txt
+# Allow all search engines to crawl the site
+
+User-agent: *
+Allow: /
+
+# Block admin panel from search engines
+Disallow: /tlh_admin.html
+
+# Sitemap location
+Sitemap: https://lakehouse.co.in/sitemap.xml
