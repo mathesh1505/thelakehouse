@@ -43,7 +43,7 @@
   "name": "The Lake House Kodaikanal",
   "description": "Luxury lake view resort in Kodaikanal with complimentary breakfast included with every room.",
   "url": "https://lakehouse.co.in",
-  "telephone": "+917845066388",
+  "telephone": "+91 7845066388",
   "email": "lakehouse.india@gmail.com",
   "address": {
     "@type": "PostalAddress",
@@ -722,6 +722,84 @@
         margin-top:80px;
     }
 
+}
+
+/* ==========================================================
+   MOBILE TYPOGRAPHY + LAYOUT REFINEMENT
+   (last mobile block — overrides the earlier ones)
+   ========================================================== */
+@media (max-width:768px){
+
+  /* ── NAV: logo stays on one line and never collides with Book Now ── */
+  nav{padding:0 14px;height:64px;}
+  .nav-logo{gap:8px;max-width:calc(100% - 150px);min-width:0;}
+  .logo-img{height:38px;width:38px;margin-right:0;flex-shrink:0;}
+  .logo-text{min-width:0;}
+  .logo-title{font-size:1rem;letter-spacing:0.01em;white-space:nowrap;}
+  .logo-sub{font-size:7.5px;letter-spacing:1.6px;white-space:nowrap;}
+  .nav-actions{gap:6px;flex-shrink:0;}
+  .theme-btn{width:32px;height:32px;font-size:0.8rem;}
+  .btn-book-nav{padding:8px 11px;font-size:0.63rem;letter-spacing:0.04em;white-space:nowrap;}
+  .hamburger{width:32px;height:32px;font-size:1.3rem;}
+  .mobile-menu{top:64px;}
+
+  /* ── HERO ── */
+  #hero{height:100vh;height:100svh;min-height:600px;}
+  .hero-content{padding:100px 20px 92px;justify-content:center;}
+
+  .hero-location{
+    font-size:0.6rem;letter-spacing:0.16em;line-height:1.6;
+    gap:8px;margin-bottom:1rem;
+    flex-wrap:wrap;justify-content:center;
+  }
+  .hero-location::before,.hero-location::after{width:22px;}
+
+  .hero-title{font-size:clamp(1.9rem,9vw,2.4rem);line-height:1.1;}
+  .hero-title em{font-size:clamp(2.6rem,13vw,3.4rem);}
+
+  .hero-tagline{
+    font-size:0.63rem;letter-spacing:0.18em;line-height:1.7;
+    margin-top:0.7rem;margin-bottom:1.8rem;
+  }
+
+  .hero-btns{width:100%;max-width:300px;gap:10px;}
+  .btn-primary,.btn-outline-h{padding:13px 20px;font-size:0.72rem;letter-spacing:0.1em;}
+
+  /* Stats: 2x2 grid instead of a single row that overflows the screen */
+  .hero-stats-bar{
+    display:grid;grid-template-columns:1fr 1fr;
+    width:100%;max-width:320px;
+    margin-top:1.8rem;padding-top:1.4rem;
+    row-gap:1.1rem;column-gap:0;
+  }
+  .hero-stat-item{padding:0 0.5rem;}
+  .hero-stat-item:nth-child(2n){border-right:none;}
+  .hero-stat-num{font-size:1.15rem;}
+  .hero-stat-label{font-size:0.52rem;letter-spacing:0.12em;line-height:1.4;margin-top:4px;}
+
+  /* Slide chrome */
+  nav.scrolled{height:56px;}
+  nav.scrolled + .mobile-menu{top:56px;}
+
+  .slide-counter{top:76px;right:14px;font-size:0.65rem;}
+  .slide-nav{display:none;}
+  .slide-dots{bottom:46px;}
+  .scroll-indicator{bottom:14px;font-size:0.53rem;letter-spacing:0.18em;}
+  .scroll-indicator::after{height:22px;}
+}
+
+/* ── Small phones (iPhone SE / 360px Android) ── */
+@media (max-width:380px){
+  .logo-img{height:34px;width:34px;}
+  .logo-title{font-size:0.9rem;}
+  .logo-sub{font-size:7px;letter-spacing:1.3px;}
+  .btn-book-nav{padding:7px 9px;font-size:0.58rem;}
+  .hero-content{padding-left:16px;padding-right:16px;}
+  .hero-location{font-size:0.55rem;letter-spacing:0.12em;}
+  .hero-location::before,.hero-location::after{width:16px;}
+  .hero-title{font-size:1.75rem;}
+  .hero-stat-num{font-size:1.05rem;}
+  .hero-stat-label{font-size:0.48rem;letter-spacing:0.1em;}
 }
 
 .hero-overlay::after{
