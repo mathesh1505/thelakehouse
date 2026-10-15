@@ -342,6 +342,7 @@
   .room-footer{display:flex;align-items:center;justify-content:space-between;padding-top:0.85rem;border-top:1px solid var(--border);}
   .room-price{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--lake);font-weight:700;}
   [data-theme="dark"] .room-price{color:var(--gold);}
+  .room-rate-note{font-family:'Jost',sans-serif;font-size:0.85rem;color:var(--text-light);font-weight:400;}
   .room-price sub{font-family:'Jost',sans-serif;font-size:0.75rem;color:var(--text-light);font-weight:400;vertical-align:middle;}
   .btn-room{background:var(--navy);color:#fff;border:none;padding:8px 17px;border-radius:6px;font-family:'Jost',sans-serif;font-size:0.77rem;font-weight:600;cursor:pointer;transition:var(--tr);}
   .btn-room:hover{background:var(--gold);color:var(--navy);}
@@ -1176,7 +1177,7 @@ nav.scrolled {
           <span class="ra"><i class="ti ti-egg-fried" style="color:#e9a800;"></i> Breakfast</span>
         </div>
         <div class="room-footer">
-          <div class="room-price" id="price-suite">₹2,900 <sub>/ night</sub></div>
+          <div class="room-rate-note">Live rates on booking page</div>
           <button class="btn-room" onclick="openBookingRoom('Suite with Mountain View')">Book Now</button>
         </div>
       </div>
@@ -1218,7 +1219,7 @@ nav.scrolled {
           <span class="ra"><i class="ti ti-egg-fried" style="color:#e9a800;"></i> Breakfast</span>
         </div>
         <div class="room-footer">
-          <div class="room-price" id="price-family">₹2,400 <sub>/ night</sub></div>
+          <div class="room-rate-note">Live rates on booking page</div>
           <button class="btn-room" onclick="openBookingRoom('Family Room with Balcony')">Book Now</button>
         </div>
       </div>
@@ -1257,7 +1258,7 @@ nav.scrolled {
           <span class="ra"><i class="ti ti-egg-fried" style="color:#e9a800;"></i> Breakfast</span>
         </div>
         <div class="room-footer">
-          <div class="room-price" id="price-quad">₹3,900 <sub>/ night</sub></div>
+          <div class="room-rate-note">Live rates on booking page</div>
           <button class="btn-room" onclick="openBookingRoom('Quadruple Room with Balcony')">Book Now</button>
         </div>
       </div>
@@ -2136,7 +2137,7 @@ var chatRules = [
   {
     keys: ['price','cost','rate','rates','tariff','charge','how much','pricing','fees','fee'],
     replies: [
-      "Our rooms start from ₹2,400/night 💰 Prices vary by room type and season. For exact price and availability, please call us at +91 78450 66388 or click the Book Now button!"
+      "Room rates vary by room type, dates and season 💰 For exact prices and availability, please click the Book Now button or call us at +91 78450 66388!"
     ]
   },
   {
@@ -3053,25 +3054,6 @@ async function checkAvailabilityLegacy() {
   }
 })();
 
-async function loadRoomPrices() {
-  const res = await fetch(
-    SUPABASE_URL + '/rest/v1/rooms?select=room_name,price',
-    { headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY } }
-  );
-  const rooms = await res.json();
-  rooms.forEach(function(r) {
-    const name = r.room_name.toLowerCase();
-    const price = Number(r.price).toLocaleString('en-IN');
-    if (name.includes('suite')) {
-      document.getElementById('price-suite').innerHTML = '₹' + price + ' <sub>/ night</sub>';
-    } else if (name.includes('family')) {
-      document.getElementById('price-family').innerHTML = '₹' + price + ' <sub>/ night</sub>';
-    } else if (name.includes('quad')) {
-      document.getElementById('price-quad').innerHTML = '₹' + price + ' <sub>/ night</sub>';
-    }
-  });
-}
-document.addEventListener('DOMContentLoaded', loadRoomPrices);
 
 // ── Transparent nav → darkens on scroll (Kings Landing effect) ──
 (function(){
