@@ -1839,8 +1839,9 @@ function toggleMenu(){document.getElementById('mobile-menu').classList.toggle('o
 
 // ══ BOOKING ══
 var selRoom='';
-function openBooking(){document.getElementById('booking-modal').classList.add('active');document.body.style.overflow='hidden';resetModal();}
-function openBookingRoom(r){selRoom=r;document.getElementById('modal-room-title').textContent='Book — '+r;try{document.getElementById('b-room').value=r;}catch(e){}openBooking();}
+var BOOKING_URL='https://bookingengine.stayflexi.com/?hotel_id=31848';
+function openBooking(){window.open(BOOKING_URL,'_blank','noopener');}
+function openBookingRoom(r){openBooking();}
 function closeBooking(){document.getElementById('booking-modal').classList.remove('active');document.body.style.overflow='';}
 function closeModalOutside(e){if(e.target===document.getElementById('booking-modal'))closeBooking();}
 function resetModal(){
@@ -2790,7 +2791,19 @@ var ROOM_INFO = {
   'quadruple room with balcony': { label: 'Quadruple Room with Balcony', icon: 'ti-users',    guests: 4 }
 };
 
-async function checkAvailability() {
+// Check Availability now sends guests to the Stayflexi booking engine,
+// the single source of truth for live rates and availability.
+function checkAvailability() {
+  var checkin  = document.getElementById('checkin').value;
+  var checkout = document.getElementById('checkout').value;
+  if (checkin && checkout && new Date(checkout) <= new Date(checkin)) {
+    alert('Check-out must be after check-in.'); return;
+  }
+  openBooking();
+}
+
+// Old Supabase-based availability check (no longer used)
+async function checkAvailabilityLegacy() {
   var checkin    = document.getElementById('checkin').value;
   var checkout   = document.getElementById('checkout').value;
   var roomFilter = document.getElementById('bar-room').value.toLowerCase();
