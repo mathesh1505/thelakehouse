@@ -6,7 +6,7 @@
 
 <!-- ── Primary SEO ── -->
 <title>The Lake House Kodaikanal | Luxury Lake View Resort</title>
-<meta name="description" content="The Lake House Kodaikanal — Luxury lake view resort with stunning mountain views. Complimentary breakfast included. Book directly for best rates. 5/82 A2 Rifle Range Road, Naidupuram, Kodaikanal 624101.">
+<meta name="description" content="The Lake House Kodaikanal — 3-star property in Kodaikanal, a lake view resort with stunning mountain views. Complimentary breakfast included. Book directly for best rates. 5/82 A2 Rifle Range Road, Naidupuram, Kodaikanal 624101.">
 <meta name="keywords" content="The Lake House Kodaikanal, luxury resort Kodaikanal, lake view hotel Kodaikanal, hotel near Kodaikanal lake, resort with breakfast Kodaikanal, boutique hotel Kodaikanal, Kodaikanal accommodation, best hotel Kodaikanal, Kodaikanal lake view stay">
 <meta name="author" content="The Lake House Kodaikanal">
 <meta name="robots" content="index, follow">
@@ -16,7 +16,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://lakehouse.co.in/">
 <meta property="og:title" content="The Lake House Kodaikanal | Luxury Lake View Resort">
-<meta property="og:description" content="Luxury lake view resort in Kodaikanal with complimentary breakfast. Book directly for best rates.">
+<meta property="og:description" content="3-star lake view resort in Kodaikanal with complimentary breakfast. Book directly for best rates.">
 <meta property="og:image" content="https://lakehouse.co.in/images/hero.webp">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -67,11 +67,13 @@
     { "@type": "LocationFeatureSpecification", "name": "Lake View", "value": true },
     { "@type": "LocationFeatureSpecification", "name": "Mountain View", "value": true },
     { "@type": "LocationFeatureSpecification", "name": "Room Heater", "value": true },
-    { "@type": "LocationFeatureSpecification", "name": "Hot Water", "value": true }
+    { "@type": "LocationFeatureSpecification", "name": "Hot Water", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Gym", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "24/7 Power Facility", "value": true }
   ],
   "starRating": {
     "@type": "Rating",
-    "ratingValue": "4"
+    "ratingValue": "3"
   },
   "image": [
     "https://lakehouse.co.in/images/hero.webp"
@@ -86,7 +88,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <style>
   :root {
     --gold:#C9A84C;--gold-dark:#8B6914;
@@ -187,6 +188,9 @@
     content:'';display:block;width:40px;height:1px;
     background:var(--gold);opacity:0.65;flex-shrink:0;
   }
+  .hero-star{font-weight:800;font-size:1.05rem;letter-spacing:0.2em;color:#E6C46A;text-shadow:0 2px 10px rgba(0,0,0,0.55);}
+  .hero-loc-rest{font-weight:500;opacity:0.9;}
+  @media(max-width:700px){.hero-location{flex-wrap:wrap;justify-content:center;text-align:center;row-gap:4px;}.hero-star{font-size:0.82rem;letter-spacing:0.12em;flex-basis:100%;}.hero-loc-rest{flex-basis:100%;}}
   .hero-title{
     font-family:'Playfair Display',serif;
     font-size:clamp(2.2rem,4.8vw,3.8rem);
@@ -356,6 +360,18 @@
   .amenity-icon{font-size:1.85rem;color:var(--gold);margin-bottom:0.62rem;display:block;}
   .amenity-name{font-weight:600;font-size:0.88rem;color:var(--text-dark);margin-bottom:0.28rem;}
   .amenity-desc{font-size:0.76rem;color:var(--text-light);line-height:1.55;}
+  .amenities-layout{display:grid;grid-template-columns:minmax(300px,0.9fr) 2.1fr;gap:1.15rem;align-items:stretch;}
+  .amenities-layout .amenities-grid{grid-template-columns:repeat(3,1fr);}
+  .gym-feature{position:relative;overflow:hidden;min-height:460px;border-radius:var(--radius-lg);border:1px solid rgba(201,168,76,0.5);box-shadow:var(--shadow);background:linear-gradient(160deg,var(--navy),#1b3550);}
+  .gym-feature .room-slideshow{position:absolute;inset:0;cursor:zoom-in;}
+  .gym-feature .slide-dots{bottom:12px !important;}
+  .gym-overlay{position:absolute;left:0;right:0;bottom:0;z-index:4;padding:3.2rem 1.5rem 2.2rem;background:linear-gradient(to top,rgba(10,22,40,0.95) 0%,rgba(10,22,40,0.75) 55%,transparent 100%);pointer-events:none;}
+  .gym-overlay h3{font-family:'Playfair Display',serif;color:#fff;font-size:1.6rem;margin:0.5rem 0 0.35rem;display:flex;align-items:center;gap:0.55rem;}
+  .gym-overlay h3 i{color:var(--gold);font-size:1.6rem;}
+  .gym-overlay p{color:rgba(255,255,255,0.8);font-size:0.88rem;line-height:1.6;margin:0;}
+  .gym-tag{display:inline-block;font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.7);background:rgba(10,22,40,0.6);border-radius:20px;padding:3px 11px;}
+  @media(max-width:900px){.amenities-layout{grid-template-columns:1fr;}.gym-feature{min-height:360px;}.amenities-layout .amenities-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:480px){.amenities-layout .amenities-grid{grid-template-columns:1fr;}}
 
   /* ── GALLERY ── */
   #gallery{background:var(--navy);padding:72px 5%;}
@@ -829,6 +845,30 @@ a.nearby-card {
   flex-direction: column;
 }
 .lightbox-overlay.active { display: flex; }
+
+/* ══ GALLERY MODAL ══ */
+#gallery-modal{display:none;position:fixed;inset:0;z-index:2900;background:#0A1520;flex-direction:column;}
+#gallery-modal.active{display:flex;}
+.gm-head{display:flex;align-items:center;justify-content:space-between;padding:18px 28px 8px;}
+.gm-title{font-family:'Playfair Display',serif;font-size:1.7rem;color:#fff;}
+.gm-count{font-size:0.8rem;color:rgba(255,255,255,0.55);margin-top:2px;}
+.gm-close{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);color:#fff;width:42px;height:42px;border-radius:50%;font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.gm-close:hover{background:var(--gold);color:#0A1520;}
+.gm-tabs{display:flex;gap:8px;padding:10px 28px 14px;overflow-x:auto;border-bottom:1px solid rgba(255,255,255,0.1);scrollbar-width:none;}
+.gm-tabs::-webkit-scrollbar{display:none;}
+.gm-tab{flex:0 0 auto;background:transparent;color:rgba(255,255,255,0.75);border:1px solid rgba(255,255,255,0.22);border-radius:30px;padding:8px 18px;font-family:'Jost',sans-serif;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;cursor:pointer;white-space:nowrap;transition:all .2s;}
+.gm-tab:hover{border-color:var(--gold);color:#fff;}
+.gm-tab.active{background:var(--gold);border-color:var(--gold);color:#0A1520;font-weight:700;}
+.gm-tab span{opacity:0.65;margin-left:6px;font-size:0.75rem;}
+.gm-body{flex:1;overflow-y:auto;padding:22px 28px 40px;}
+.gm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;}
+.gm-item{position:relative;aspect-ratio:4/3;border-radius:12px;overflow:hidden;cursor:pointer;background:#142233;border:1px solid rgba(255,255,255,0.08);}
+.gm-item img,.gm-item video{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;}
+.gm-item:hover img,.gm-item:hover video{transform:scale(1.06);}
+.gm-item .gm-label{position:absolute;left:0;right:0;bottom:0;padding:22px 12px 9px;font-size:0.75rem;color:#fff;background:linear-gradient(to top,rgba(0,0,0,0.75),transparent);}
+.gm-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;background:rgba(10,21,32,0.7);border:2px solid var(--gold);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:1.5rem;}
+.gm-empty{display:none;text-align:center;color:rgba(255,255,255,0.55);padding:60px 0;font-size:0.95rem;}
+@media(max-width:600px){.gm-head{padding:14px 16px 6px;}.gm-tabs{padding:8px 16px 12px;}.gm-body{padding:16px 14px 40px;}.gm-grid{grid-template-columns:repeat(2,1fr);gap:8px;}.gm-title{font-size:1.4rem;}}
 .lightbox-close {
   position: absolute; top: 18px; right: 22px; background: none; border: none;
   color: #fff; font-size: 2rem; cursor: pointer; z-index: 10; line-height: 1;
@@ -1017,19 +1057,19 @@ nav.scrolled {
 <!-- HERO SLIDESHOW — 4 slides, 5s interval, no progress bar -->
 <section id="hero">
   <div class="slide active" id="slide-0">
-    <img src="images/exterior.webp" alt="Exterior view of The Lake House Kodaikanal" />
+    <img src="images/studio-1.webp" alt="Studio room at The Lake House Kodaikanal" />
     <div class="slide-overlay"></div>
   </div>
   <div class="slide" id="slide-1">
-    <img src="images/bedroom.webp" alt="Guest bedroom at The Lake House Kodaikanal" />
+    <img src="images/exterior.webp" alt="Exterior view of The Lake House Kodaikanal" />
     <div class="slide-overlay"></div>
   </div>
   <div class="slide" id="slide-2">
-    <img src="images/mountainview-1.webp" alt="Mountain view from The Lake House Kodaikanal" />
+    <img src="images/bedroom.webp" alt="Guest bedroom at The Lake House Kodaikanal" />
     <div class="slide-overlay"></div>
   </div>
   <div class="slide" id="slide-3">
-    <img src="images/reception.webp" alt="Reception area at The Lake House Kodaikanal" />
+    <img src="images/mountainview-1.webp" alt="Mountain view from The Lake House Kodaikanal" />
     <div class="slide-overlay"></div>
   </div>
   <div class="slide-fade-bottom"></div>
@@ -1037,7 +1077,7 @@ nav.scrolled {
 
   <!-- Hero content — Kings Landing centred style -->
   <div class="hero-content">
-    <div class="hero-location">Rifle Range Road &middot; Kodaikanal &middot; Tamil Nadu</div>
+    <div class="hero-location"><span class="hero-star">&#9733; 3-Star Property in Kodaikanal</span><span class="hero-loc-rest"></span></div>
     <h1 class="hero-title">
       The Lake House
     </h1>
@@ -1088,6 +1128,7 @@ nav.scrolled {
   <span><i class="ti ti-login" style="color:var(--gold);font-size:1rem;"></i> <strong>Check-in:</strong> 12:00 PM</span>
   <span><i class="ti ti-logout" style="color:var(--gold);font-size:1rem;"></i> <strong>Check-out:</strong> 10:30 AM</span>
   <span><i class="ti ti-egg-fried" style="color:var(--gold);font-size:1rem;"></i> <strong style="color:var(--gold);">✦ Complimentary Breakfast</strong> included with all rooms</span>
+  <span><i class="ti ti-star" style="color:var(--gold);font-size:1rem;"></i> <strong>3-Star Property</strong> in Kodaikanal</span>
 </div>
 
 <!-- BOOKING BAR -->
@@ -1109,6 +1150,7 @@ nav.scrolled {
         <select id="bar-room">
           <option value="any">Any Room</option>
           <option>Suite with Mountain View</option>
+          <option>Studio Suite with Mountain View</option>
           <option>Family Room with Balcony</option>
           <option>Quadruple Room with Balcony</option>
         </select>
@@ -1117,14 +1159,6 @@ nav.scrolled {
         <button class="btn-search" onclick="checkAvailability()"><i class="ti ti-search"></i> Check Availability</button>
       </div>
     </div>
-  </div>
-</div>
-
-<!-- AVAILABILITY RESULTS -->
-<div id="avail-results" style="display:none; background:var(--cream-dark); border-top:1px solid var(--border); padding:1.5rem 5%;">
-  <div style="max-width:960px; margin:0 auto;">
-    <div id="avail-header" style="font-family:'Playfair Display',serif; font-size:1.1rem; color:var(--text-dark); margin-bottom:1rem;"></div>
-    <div id="avail-cards" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1rem;"></div>
   </div>
 </div>
 
@@ -1264,6 +1298,48 @@ nav.scrolled {
       </div>
     </div>
 
+    <!-- Room 4: Studio Suite with Mountain View -->
+    <div class="room-card">
+      <div class="room-img">
+        <div class="room-slideshow" id="slide-studio" onclick="openRoomLightbox('studio', event)">
+          <img src="images/studio-1.webp" class="slide active" alt="Studio Suite with Mountain View" loading="lazy"/>
+          <img src="images/studio-2.webp" class="slide" alt="Studio Suite with Mountain View" loading="lazy"/>
+          <img src="images/studio-3.webp" class="slide" alt="Studio Suite with Mountain View" loading="lazy"/>
+          <img src="images/studio-4.webp" class="slide" alt="Studio Suite with Mountain View" loading="lazy"/>
+          <img src="images/studio-5.webp" class="slide" alt="Studio Suite with Mountain View" loading="lazy"/>
+          <button class="slide-prev" onclick="slideChange(event,'slide-studio',-1)">&#8249;</button>
+          <button class="slide-next" onclick="slideChange(event,'slide-studio',1)">&#8250;</button>
+          <div class="slide-dots" id="dots-studio"></div>
+        </div>
+        <div class="room-badge badge-gold">Studio Suite</div>
+        <div class="room-bfast"><i class="ti ti-egg-fried"></i> Breakfast</div>
+      </div>
+      <div class="room-body">
+        <div class="room-name">Studio Suite with Mountain View</div>
+        <div class="room-meta">
+          <div class="room-meta-item"><i class="ti ti-users"></i> Max 2 Adults + 1 Child</div>
+          <div class="room-meta-item"><i class="ti ti-area"></i> 250 sq.ft</div>
+          <div class="room-meta-item"><i class="ti ti-mountain"></i> Mountain View</div>
+          <div class="room-meta-item"><i class="ti ti-bed"></i> King Size Bed</div>
+
+        </div>
+        <div class="room-desc">A cosy studio suite with mountain views, ideal for a couple or a small family travelling with one child.</div>
+        <div class="room-amenities">
+          <span class="ra"><i class="ti ti-wifi"></i> Wi-Fi</span>
+          <span class="ra"><i class="ti ti-droplet"></i> Hot Water</span>
+          <span class="ra"><i class="ti ti-bath"></i> Bathroom</span>
+          <span class="ra"><i class="ti ti-tool"></i> Room Service</span>
+          <span class="ra"><i class="ti ti-home-cog"></i> Housekeeping</span>
+          <span class="ra"><i class="ti ti-temperature"></i> Heater</span>
+          <span class="ra"><i class="ti ti-egg-fried" style="color:#e9a800;"></i> Breakfast</span>
+        </div>
+        <div class="room-footer">
+          <div class="room-rate-note">Live rates on booking page</div>
+          <button class="btn-room" onclick="openBookingRoom('Studio Suite with Mountain View')">Book Now</button>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -1272,6 +1348,23 @@ nav.scrolled {
   <div class="section-tag">World-Class Facilities</div>
   <h2 class="section-title">Resort Amenities</h2>
   <p class="section-subtitle">Everything crafted to make your Kodaikanal escape truly unforgettable.</p>
+  <div class="amenities-layout">
+  <div class="gym-feature">
+    <div class="room-slideshow" id="slide-gym" onclick="openRoomLightbox('gym', event)">
+      <img src="images/gym-1.webp" class="slide active" alt="Gym at The Lake House Kodaikanal" loading="lazy" onerror="this.style.display='none'"/>
+      <img src="images/gym-2.webp" class="slide" alt="Gym at The Lake House Kodaikanal" loading="lazy" onerror="this.style.display='none'"/>
+      <img src="images/gym-3.webp" class="slide" alt="Gym at The Lake House Kodaikanal" loading="lazy" onerror="this.style.display='none'"/>
+      <img src="images/gym-4.webp" class="slide" alt="Gym at The Lake House Kodaikanal" loading="lazy" onerror="this.style.display='none'"/>
+      <button class="slide-prev" onclick="slideChange(event,'slide-gym',-1)">&#8249;</button>
+      <button class="slide-next" onclick="slideChange(event,'slide-gym',1)">&#8250;</button>
+      <div class="slide-dots" id="dots-gym"></div>
+    </div>
+    <div class="gym-overlay">
+      <span class="gym-tag">Guests Only</span>
+      <h3><i class="ti ti-barbell"></i> Fitness Gym</h3>
+      <p>Keep your workout routine going in the hills. Our gym is exclusively for in-house guests of The Lake House.</p>
+    </div>
+  </div>
   <div class="amenities-grid">
     <div class="amenity-card"><i class="ti ti-egg-fried amenity-icon" style="color:#e9a800;"></i><div class="amenity-name">Complimentary Breakfast</div><div class="amenity-desc">Fresh breakfast served every morning — included with every room booking, no extra charge.</div></div>
     <div class="amenity-card"><i class="ti ti-mountain amenity-icon"></i><div class="amenity-name">Mountain Views</div><div class="amenity-desc">Stunning vistas of the Palani Hills and Kodaikanal lake from rooms and balconies.</div></div>
@@ -1281,6 +1374,8 @@ nav.scrolled {
     <div class="amenity-card"><i class="ti ti-home-cog amenity-icon"></i><div class="amenity-name">Daily Housekeeping</div><div class="amenity-desc">Rooms serviced and refreshed daily by our attentive housekeeping team.</div></div>
     <div class="amenity-card"><i class="ti ti-tool amenity-icon"></i><div class="amenity-name">In-Room Service</div><div class="amenity-desc">Room service available for meals, beverages, and guest needs throughout the day.</div></div>
     <div class="amenity-card"><i class="ti ti-parking amenity-icon"></i><div class="amenity-name">Ample Parking</div><div class="amenity-desc">Secure on-premises parking with CCTV surveillance for all guests.</div></div>
+    <div class="amenity-card"><i class="ti ti-bolt amenity-icon"></i><div class="amenity-name">24/7 Power Facility</div><div class="amenity-desc">Uninterrupted power round the clock, backed by a 24/7 generator.</div></div>
+  </div>
   </div>
 </section>
 
@@ -1290,34 +1385,34 @@ nav.scrolled {
   <h2 class="section-title">Gallery</h2>
   <p class="section-subtitle">A glimpse of The Lake House — where every corner tells a story.</p>
   <div class="gallery-grid">
-    <div class="gallery-item" onclick="openGallery(0)">
-      <img src="images/nightview.webp" alt="Night view of The Lake House Kodaikanal" loading="lazy"/>
+    <div class="gallery-item" onclick="openGalleryModal('studio')">
+      <img src="images/studio-1.webp" alt="Studio room at The Lake House Kodaikanal" loading="lazy"/>
        <div class="gallery-overlay"><i class="ti ti-zoom-in"></i></div>
-      <div class="gallery-label">Night View</div>
+      <div class="gallery-label">Studio Suite</div>
     </div>
-    <div class="gallery-item" onclick="openGallery(1)">
+    <div class="gallery-item" onclick="openGalleryModal('hotel')">
        <img src="images/exterior.webp" alt="Exterior view of The Lake House Kodaikanal" loading="lazy"/>
        <div class="gallery-overlay"><i class="ti ti-zoom-in"></i></div>
       <div class="gallery-label">Exterior</div>
     </div>
-    <div class="gallery-item" onclick="openGallery(2)">
+    <div class="gallery-item" onclick="openGalleryModal('suite')">
        <img src="images/bedroom.webp" alt="Guest bedroom at The Lake House Kodaikanal" loading="lazy"/>
        <div class="gallery-overlay"><i class="ti ti-zoom-in"></i></div>
       <div class="gallery-label">Bedroom</div>
     </div>
-    <div class="gallery-item" onclick="openGallery(3)">
+    <div class="gallery-item" onclick="openGalleryModal('hotel')">
       <img src="images/reception.webp" alt="Reception area at The Lake House Kodaikanal" loading="lazy"/>
        <div class="gallery-overlay"><i class="ti ti-zoom-in"></i></div>
       <div class="gallery-label">Reception</div>
     </div>
-    <div class="gallery-item" onclick="openGallery(4)">
+    <div class="gallery-item" onclick="openGalleryModal('mountain')">
       <img src="images/mountainview-2.webp" alt="Mountain view from The Lake House Kodaikanal" loading="lazy"/>
       <div class="gallery-overlay"><i class="ti ti-zoom-in"></i></div>
       <div class="gallery-label">Mountain View</div>
     </div>
   </div>
   <p style="text-align:center;margin-top:1.8rem;">
-    <button class="btn-outline-h" style="display:inline-flex;margin:0 auto;" onclick="openGallery(0)">
+    <button class="btn-outline-h" style="display:inline-flex;margin:0 auto;" onclick="openGalleryModal('all')">
       <i class="ti ti-photo-plus"></i> View All Photos &amp; Videos
     </button>
   </p>
@@ -1602,12 +1697,13 @@ nav.scrolled {
         <select id="e-room">
           <option>Select room type</option>
           <option>Suite with Mountain View</option>
+          <option>Studio Suite with Mountain View</option>
           <option>Family Room with Balcony</option>
           <option>Quadruple Room with Balcony</option>
         </select>
       </div>
       <div class="form-group"><label>Special Requests</label><textarea id="e-message" placeholder="Anniversary, early check-in, dietary requirements..."></textarea></div>
-      <button class="btn-submit" onclick="submitEnquiry()"><i class="ti ti-send"></i> Send Enquiry</button>
+      <button class="btn-submit" onclick="submitEnquiry()"><i class="ti ti-brand-whatsapp"></i> Send Enquiry on WhatsApp</button>
     </div>
   </div>
 </section>
@@ -1620,7 +1716,7 @@ nav.scrolled {
         <i class="ti ti-home-2" style="font-size:1.25rem;color:var(--gold);"></i>
         <div class="footer-logo-name">The Lake House <span class="logo-sub">Kodaikanal</span></div>
       </a>
-      <p class="footer-about">5/82 A2, Rifle Range Road, Naidupuram, Kodaikanal, Tamil Nadu 624101. Modern luxury with complimentary breakfast, mountain views, and heartfelt hospitality.</p>
+      <p class="footer-about">5/82 A2, Rifle Range Road, Naidupuram, Kodaikanal, Tamil Nadu 624101. A 3-star property in Kodaikanal with complimentary breakfast, mountain views, gym, 24/7 power and heartfelt hospitality.</p>
      
     </div>
     <div>
@@ -1663,85 +1759,6 @@ nav.scrolled {
   </div>
 </footer>
 
-<!-- BOOKING MODAL -->
-<div class="modal-overlay" id="booking-modal" onclick="closeModalOutside(event)">
-  <div class="modal">
-    <div class="modal-header">
-      <div class="modal-title" id="modal-room-title">Book Your Stay</div>
-      <button class="modal-close" onclick="closeBooking()"><i class="ti ti-x"></i></button>
-    </div>
-    <div class="modal-body">
-      <div class="booking-steps">
-        <div class="step active" id="step1"><div class="step-dot">1</div><div class="step-label">Details</div></div>
-        <div class="step" id="step2"><div class="step-dot">2</div><div class="step-label">Payment</div></div>
-        <div class="step" id="step3"><div class="step-dot">3</div><div class="step-label">Confirm</div></div>
-      </div>
-      <div id="step-1-content">
-        <div class="form-row">
-          <div class="form-group"><label>First Name *</label><input type="text" id="b-fname" placeholder="Your name"></div>
-          <div class="form-group"><label>Last Name *</label><input type="text" id="b-lname" placeholder="Last name"></div>
-        </div>
-        <div class="form-group"><label>Email *</label><input type="email" id="b-email" placeholder="you@example.com"></div>
-        <div class="form-group"><label>Phone *</label><input type="tel" id="b-phone" placeholder="+91 00000 00000"></div>
-        <div class="form-row">
-          <div class="form-group"><label>Check-in *</label><input type="date" id="b-checkin"></div>
-          <div class="form-group"><label>Check-out *</label><input type="date" id="b-checkout"></div>
-        </div>
-        <div class="form-row">
-          <div class="form-group"><label>Room Type *</label>
-            <select id="b-room">
-              <option>Suite with Mountain View</option>
-              <option>Family Room with Balcony</option>
-              <option>Quadruple Room with Balcony</option>
-            </select>
-          </div>
-          <div class="form-group"><label>Guests</label>
-            <select id="b-guests"><option>1</option><option selected>2</option><option>3</option><option>4</option></select>
-          </div>
-        </div>
-        <div class="form-group"><label>Special Requests</label><textarea id="b-requests" placeholder="Anniversary, early check-in, dietary needs..."></textarea></div>
-        <div style="background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.3);border-radius:8px;padding:10px 13px;font-size:0.8rem;color:var(--gold);display:flex;align-items:center;gap:7px;margin-bottom:1rem;">
-          <i class="ti ti-egg-fried"></i> Complimentary breakfast included — Check-in 12:00 PM · Check-out 10:30 AM
-        </div>
-        <button class="btn-submit" onclick="goToStep2()">Continue to Payment →</button>
-      </div>
-      <div id="step-2-content" style="display:none;">
-        <div style="background:var(--cream-dark);border-radius:10px;padding:1rem;margin-bottom:1.2rem;border:1px solid var(--border);">
-          <div style="font-weight:700;margin-bottom:0.6rem;font-size:0.85rem;color:var(--text-dark);">Booking Summary</div>
-          <div style="display:flex;justify-content:space-between;font-size:0.83rem;margin-bottom:0.28rem;color:var(--text-mid);"><span>Room</span><span id="summary-room" style="color:var(--text-dark);font-weight:500;">—</span></div>
-          <div style="display:flex;justify-content:space-between;font-size:0.83rem;margin-bottom:0.28rem;color:var(--text-mid);"><span>Dates</span><span id="summary-dates" style="color:var(--text-dark);font-weight:500;">—</span></div>
-          <div style="display:flex;justify-content:space-between;font-size:0.83rem;margin-bottom:0.28rem;color:var(--text-mid);"><span>Guests</span><span id="summary-guests" style="color:var(--text-dark);font-weight:500;">—</span></div>
-          <div style="display:flex;justify-content:space-between;font-size:0.8rem;color:var(--gold);margin-bottom:0.28rem;"><span>✦ Complimentary Breakfast</span><span>Included</span></div>
-          <div style="border-top:1px solid var(--border);margin-top:0.6rem;padding-top:0.6rem;display:flex;justify-content:space-between;font-weight:700;color:var(--gold);font-family:'Playfair Display',serif;font-size:1.05rem;"><span>Total</span><span id="summary-total">—</span></div>
-        </div>
-        <div class="form-group"><label>Payment Method</label>
-          <select><option>Credit / Debit Card</option><option>UPI / GPay / PhonePe</option><option>Net Banking</option><option>Pay at Property</option></select>
-        </div>
-        <div class="form-group"><label>Card Number</label><input type="text" placeholder="1234 5678 9012 3456" maxlength="19"></div>
-        <div class="form-row">
-          <div class="form-group"><label>Expiry</label><input type="text" placeholder="MM / YY" maxlength="7"></div>
-          <div class="form-group"><label>CVV</label><input type="text" placeholder="***" maxlength="3"></div>
-        </div>
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:0.9rem;font-size:0.76rem;color:var(--text-light);">
-          <i class="ti ti-shield-check" style="color:var(--gold);"></i> 256-bit SSL encrypted. 100% secure.
-        </div>
-        <div style="display:flex;gap:0.8rem;">
-          <button class="btn-outline-h" style="color:var(--text-mid);border-color:var(--border);padding:11px 16px;" onclick="backToStep1()">← Back</button>
-          <button class="btn-submit" style="flex:1;margin-top:0;" onclick="confirmBooking()">Confirm &amp; Pay →</button>
-        </div>
-      </div>
-      <div class="success-msg" id="step-3-content">
-        <i class="ti ti-circle-check-filled" style="color:var(--gold);"></i>
-        <h3>Booking Confirmed!</h3>
-        <p style="margin-bottom:0.8rem;color:var(--text-mid);">Your reservation at The Lake House Kodaikanal is confirmed. Confirmation sent to your email.</p>
-        <p style="font-size:0.8rem;color:var(--text-light);">Booking ID: <strong id="booking-id" style="color:var(--gold);">LH-000000</strong></p>
-        <p style="font-size:0.78rem;color:var(--gold);margin-top:0.5rem;">✦ Remember: Complimentary breakfast is included!</p>
-        <button class="btn-submit" style="margin-top:1.2rem;" onclick="closeBooking()">Done</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- NOTIFICATION -->
 <div class="notif" id="notif"></div>
 
@@ -1773,6 +1790,16 @@ nav.scrolled {
 </div>
  
 <!-- LIGHTBOX -->
+<!-- GALLERY MODAL (tabs by category) -->
+<div id="gallery-modal" role="dialog" aria-label="Photo and video gallery">
+  <div class="gm-head">
+    <div><div class="gm-title">Gallery</div><div class="gm-count" id="gm-count"></div></div>
+    <button class="gm-close" onclick="closeGalleryModal()" aria-label="Close gallery"><i class="ti ti-x"></i></button>
+  </div>
+  <div class="gm-tabs" id="gm-tabs"></div>
+  <div class="gm-body"><div class="gm-grid" id="gm-grid"></div><div class="gm-empty" id="gm-empty">Photos coming soon.</div></div>
+</div>
+
 <div class="lightbox-overlay" id="lightbox">
   <button class="lightbox-close" onclick="closeLightbox()">&#x2715;</button>
   <div class="lightbox-main">
@@ -1839,285 +1866,9 @@ function toggleMenu(){document.getElementById('mobile-menu').classList.toggle('o
 
 
 // ══ BOOKING ══
-var selRoom='';
 var BOOKING_URL='https://bookingengine.stayflexi.com/?hotel_id=31848';
 function openBooking(){window.open(BOOKING_URL,'_blank','noopener');}
 function openBookingRoom(r){openBooking();}
-function closeBooking(){document.getElementById('booking-modal').classList.remove('active');document.body.style.overflow='';}
-function closeModalOutside(e){if(e.target===document.getElementById('booking-modal'))closeBooking();}
-function resetModal(){
-  document.getElementById('step-1-content').style.display='block';
-  document.getElementById('step-2-content').style.display='none';
-  document.getElementById('step-3-content').style.display='none';
-  ['step1','step2','step3'].forEach(function(id){document.getElementById(id).className='step';});
-  document.getElementById('step1').classList.add('active');
-}
-async function goToStep2(){
-  var fn=document.getElementById('b-fname').value.trim();
-  var ln=document.getElementById('b-lname').value.trim();
-  var em=document.getElementById('b-email').value.trim();
-  var ph=document.getElementById('b-phone').value.trim();
-  var ci=document.getElementById('b-checkin').value;
-  var co=document.getElementById('b-checkout').value;
-
-  if(!fn||!ln||!em||!ph||!ci||!co){showNotif('⚠️ Please fill in all required fields.');return;}
-
-  var emailRe=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if(!emailRe.test(em)){showNotif('⚠️ Please enter a valid email address.');return;}
-
-  var phoneDigits=ph.replace(/[^0-9]/g,'');
-  if(phoneDigits.length<10){showNotif('⚠️ Please enter a valid phone number.');return;}
-
-  var ciDate=new Date(ci);
-  var coDate=new Date(co);
-  var today=new Date(); today.setHours(0,0,0,0);
-  if(ciDate<today){showNotif('⚠️ Check-in date cannot be in the past.');return;}
-  if(coDate<=ciDate){showNotif('⚠️ Check-out date must be after check-in date.');return;}
-  document.getElementById('step-1-content').style.display='none';
-  document.getElementById('step-2-content').style.display='block';
-  document.getElementById('step1').classList.add('done');
-  document.getElementById('step2').classList.add('active');
-  var room=document.getElementById('b-room').value;
-  var guests=document.getElementById('b-guests').value;
-  var nights=Math.max(1,Math.round((new Date(co)-new Date(ci))/86400000));
-  // Fetch live price from Supabase — never guess a price if this fails.
-  document.getElementById('summary-room').textContent=room;
-  document.getElementById('summary-dates').textContent=ci+' → '+co;
-  document.getElementById('summary-guests').textContent=guests+' guest(s) · '+nights+' night(s)';
-  document.getElementById('summary-total').textContent='Loading price…';
-
-  try {
-    const priceRes = await fetch(
-      SUPABASE_URL + '/rest/v1/rooms?select=room_name,price&room_name=ilike.*' + encodeURIComponent(room.split(' ')[0]) + '*',
-      { headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY } }
-    );
-    if (!priceRes.ok) throw new Error('Price lookup failed: ' + priceRes.status);
-    const priceData = await priceRes.json();
-    if (!priceData[0] || typeof priceData[0].price !== 'number') {
-      throw new Error('No price returned for room: ' + room);
-    }
-    const livePrice = priceData[0].price;
-    var tot = livePrice * nights;
-    document.getElementById('summary-total').textContent='₹'+tot.toLocaleString('en-IN');
-  } catch(e) {
-    console.error('Could not load live room price:', e);
-    document.getElementById('summary-total').textContent='—';
-    showNotif('⚠️ Could not load pricing right now. Please go back and try again.');
-    backToStep1();
-  }
-}
-function backToStep1(){
-  document.getElementById('step-1-content').style.display='block';
-  document.getElementById('step-2-content').style.display='none';
-  document.getElementById('step2').className='step';
-  document.getElementById('step1').className='step active';
-}
-async function confirmBooking(){
-
-  const room = document.getElementById('b-room').value;
-  const ci   = document.getElementById('b-checkin').value;
-  const co   = document.getElementById('b-checkout').value;
-
-  const nights      = Math.max(1, Math.round((new Date(co) - new Date(ci)) / 86400000));
-  // Fetch live price from Supabase — never fall back to a guessed price
-  // for an actual charge. If this fails, stop before payment starts.
-  let totalAmount;
-  try {
-    const priceRes2 = await fetch(
-      SUPABASE_URL + '/rest/v1/rooms?select=room_name,price&room_name=ilike.*' + encodeURIComponent(room.split(' ')[0]) + '*',
-      { headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY } }
-    );
-    if (!priceRes2.ok) throw new Error('Price lookup failed: ' + priceRes2.status);
-    const priceData2 = await priceRes2.json();
-    if (!priceData2[0] || typeof priceData2[0].price !== 'number') {
-      throw new Error('No price returned for room: ' + room);
-    }
-    totalAmount = priceData2[0].price * nights;
-  } catch (err) {
-    console.error('Could not confirm live room price, aborting booking:', err);
-    showNotif('❌ Could not confirm pricing right now. Please try again.');
-    return;
-  }
-
-  // ── AVAILABILITY CHECK BEFORE CONFIRMING ──
-  // Uses same logic as checkAvailability(): fetch all overlapping bookings,
-  // filter client-side by room type (case-insensitive). This avoids ilike
-  // URL-encoding issues that caused sold-out rooms to appear available.
-  try {
-    // 1. Fetch all rooms, match by name client-side to avoid ilike case issues
-    const roomRes = await fetch(
-      SUPABASE_URL + '/rest/v1/rooms?select=room_name,total_rooms',
-      { headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY } }
-    );
-    const allRooms = await roomRes.json();
-    const roomRow  = allRooms.find(r => r.room_name.toLowerCase() === room.toLowerCase());
-
-    if (!roomRow) {
-      showNotif('❌ Room not found. Please try again.');
-      return;
-    }
-
-    const totalRooms = roomRow.total_rooms;
-
-    // 2. Fetch ALL bookings overlapping the dates (no room_type URL filter),
-    //    then count for this room type client-side — same as checkAvailability()
-    const bookingsRes = await fetch(
-      SUPABASE_URL + '/rest/v1/bookings?select=room_type,check_in,check_out' +
-      '&check_in=lt.' + co + '&check_out=gt.' + ci,
-      { headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY } }
-    );
-    const allOverlapping = await bookingsRes.json();
-
-    const bookedCount    = allOverlapping.filter(
-      b => (b.room_type || '').toLowerCase() === room.toLowerCase()
-    ).length;
-
-    const availableRooms = totalRooms - bookedCount;
-
-    if (availableRooms <= 0) {
-      showNotif('❌ Sorry, this room is sold out for the selected dates.');
-      backToStep1();
-      closeBooking();
-      if (document.getElementById('avail-results').style.display !== 'none') {
-        checkAvailability();
-      }
-      return;
-    }
-
-  } catch(err) {
-    console.error('Availability check failed:', err);
-    showNotif('❌ Could not verify availability. Please try again.');
-    return;
-  }
-  // ── END AVAILABILITY CHECK ──
-
-  const bookingData = {
-    guest_name:     document.getElementById('b-fname').value.trim() + ' ' + document.getElementById('b-lname').value.trim(),
-    mobile:         document.getElementById('b-phone').value.trim(),
-    email:          document.getElementById('b-email').value.trim(),
-    room_type:      room,
-    check_in:       ci,
-    check_out:      co,
-    adults:         parseInt(document.getElementById('b-guests').value) || 1,
-    children:       0,
-    amount:         totalAmount,
-    booking_status: 'confirmed'
-  };
-
-  const payBtn = document.querySelector('#step-2-content .btn-submit[onclick="confirmBooking()"]');
-  if (payBtn) { payBtn.disabled = true; payBtn.textContent = 'Processing…'; }
-
-  try {
-    // ── STEP A: ask the backend to create a Razorpay order.
-    // The key_secret is used only on the server — never sent here.
-    const orderRes = await fetch(BACKEND_URL + '/api/create-order', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ amount: totalAmount, booking: bookingData })
-    });
-    const order = await orderRes.json();
-
-    if (!orderRes.ok || !order.order_id) {
-      showNotif('❌ Could not start payment. Please try again.');
-      if (payBtn) { payBtn.disabled = false; payBtn.textContent = 'Confirm & Pay →'; }
-      return;
-    }
-
-    // ── STEP B: open Razorpay checkout ──
-    const rzp = new Razorpay({
-      key: order.key_id, // public key only
-      amount: order.amount,
-      currency: order.currency,
-      order_id: order.order_id,
-      name: 'The Lake House Kodaikanal',
-      description: room,
-      prefill: {
-        name: bookingData.guest_name,
-        email: bookingData.email,
-        contact: bookingData.mobile
-      },
-      theme: { color: '#C9A84C' },
-      handler: async function (response) {
-        // ── STEP C: send the payment response to the backend to verify
-        // the signature with the key_secret. Only on success do we treat
-        // the booking as paid.
-        try {
-          const verifyRes = await fetch(BACKEND_URL + '/api/verify-payment', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              razorpay_order_id:   response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature:  response.razorpay_signature,
-              booking: bookingData
-            })
-          });
-          const verifyData = await verifyRes.json();
-
-          if (!verifyData.verified) {
-            showNotif('❌ Payment verification failed. Please contact us before retrying.');
-            if (payBtn) { payBtn.disabled = false; payBtn.textContent = 'Confirm & Pay →'; }
-            return;
-          }
-
-          // If the backend doesn't have a Supabase service key configured,
-          // it won't have saved the booking — fall back to saving it here
-          // (with payment_status already confirmed as paid).
-          if (!verifyData.db_saved) {
-            await supabaseClient.from('bookings').insert([{
-              ...bookingData,
-              payment_status: 'paid',
-              razorpay_order_id:   response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id
-            }]);
-          }
-
-          document.getElementById('step-2-content').style.display = 'none';
-          document.getElementById('step-3-content').style.display = 'block';
-          document.getElementById('step2').classList.add('done');
-          document.getElementById('step3').classList.add('active', 'done');
-          document.getElementById('booking-id').textContent =
-            (verifyData.booking && verifyData.booking.id) ? 'LH-' + verifyData.booking.id
-                                                            : 'LH-' + Math.floor(100000 + Math.random() * 900000);
-
-          showNotif('🎉 Booking Confirmed & Paid!');
-        } catch (err) {
-          console.error(err);
-          showNotif('❌ Could not verify payment. Please contact us.');
-        } finally {
-          if (payBtn) { payBtn.disabled = false; payBtn.textContent = 'Confirm & Pay →'; }
-        }
-      },
-      modal: {
-        ondismiss: function () {
-          if (payBtn) { payBtn.disabled = false; payBtn.textContent = 'Confirm & Pay →'; }
-        }
-      }
-    });
-
-    rzp.on('payment.failed', function (resp) {
-      console.error(resp.error);
-      showNotif('❌ Payment failed: ' + resp.error.description);
-      if (payBtn) { payBtn.disabled = false; payBtn.textContent = 'Confirm & Pay →'; }
-    });
-
-    rzp.open();
-
-  } catch (err) {
-    console.error(err);
-    showNotif('❌ Something went wrong while starting payment.');
-    if (payBtn) { payBtn.disabled = false; payBtn.textContent = 'Confirm & Pay →'; }
-  }
-}
-// ══ SEARCH ══
-function searchRooms(){
-  var ci=document.getElementById('checkin').value;
-  var co=document.getElementById('checkout').value;
-  if(!ci||!co){showNotif('⚠️ Please select check-in and check-out dates.');return;}
-  showNotif('🔍 Checking availability...');
-  setTimeout(function(){document.getElementById('rooms').scrollIntoView({behavior:'smooth'});showNotif('✅ Rooms available for your dates!');},1100);
-}
-
 // ══ SMART CHAT (no API needed — works everywhere) ══
 
 var chatRules = [
@@ -2131,7 +1882,7 @@ var chatRules = [
   {
     keys: ['room','rooms','accommodation','stay','suite','deluxe','lake view','lakeview'],
     replies: [
-      "We have 3 room types 🛏️\n\n• Lake View Room – Stunning views of Kodaikanal Lake\n• Deluxe Room – Spacious & cozy with premium amenities\n• Premium Suite – Our finest room with extra luxury\n\nAll rooms include complimentary breakfast, heater, Wi-Fi & hot water. Want to know pricing?",
+      "We have 4 room types 🛏️\n\n• Suite with Mountain View\n• Studio Suite with Mountain View – max 2 adults + 1 child\n• Family Room with Balcony\n• Quadruple Room with Balcony\n\nAll rooms include complimentary breakfast, heater, Wi-Fi & hot water. For rates and availability, click Book Now!",
     ]
   },
   {
@@ -2203,7 +1954,7 @@ var chatRules = [
   {
     keys: ['amenities','facilities','feature','features','service','services','parking'],
     replies: [
-      "Every room comes with 🌟\n\n• Complimentary breakfast\n• High-speed Wi-Fi\n• Room heater\n• 24/7 hot water\n• Daily housekeeping\n• In-room service\n• Free parking\n\nNeed more details? Call +91 78450 66388!"
+      "Every room comes with 🌟\n\n• Complimentary breakfast\n• High-speed Wi-Fi\n• Room heater\n• 24/7 hot water\n• Daily housekeeping\n• In-room service\n• Free parking\n• Gym (guests only)\n• 24/7 power with generator backup\n\nNeed more details? Call +91 78450 66388!"
     ]
   },
   {
@@ -2321,7 +2072,7 @@ document.addEventListener('DOMContentLoaded', function(){
 // ══ BLOCK PAST DATES IN DATE PICKERS ══
 document.addEventListener('DOMContentLoaded', function(){
   var todayStr = new Date().toISOString().slice(0,10);
-  var pairs = [ ['checkin','checkout'], ['b-checkin','b-checkout'] ];
+  var pairs = [ ['checkin','checkout'] ];
   pairs.forEach(function(pair){
     var ciEl = document.getElementById(pair[0]);
     var coEl = document.getElementById(pair[1]);
@@ -2344,55 +2095,45 @@ function showNotif(msg){
   n.textContent=msg;n.classList.add('show');
   clearTimeout(nt);nt=setTimeout(function(){n.classList.remove('show');},3200);
 }
-async function submitEnquiry(){
+// ══ ENQUIRY → WHATSAPP ══
+var ENQUIRY_WHATSAPP = '917845066388';   // client's WhatsApp number (country code + number, no + or spaces)
 
-  const enquiryData = {
+function submitEnquiry(){
+  var v = function(id){ var e = document.getElementById(id); return e ? e.value.trim() : ''; };
+  var fname = v('e-fname'), lname = v('e-lname'), phone = v('e-phone'), email = v('e-email');
+  var ci = v('e-checkin'), co = v('e-checkout'), msg = v('e-message');
+  var roomSel = document.getElementById('e-room');
+  var room = (roomSel && roomSel.selectedIndex > 0) ? roomSel.value : '';   // ignore the placeholder
 
-    name:
-      document.getElementById("e-fname").value.trim() +
-      " " +
-      document.getElementById("e-lname").value.trim(),
+  if (!fname) { showNotif('⚠️ Please enter your name.'); return; }
+  if (ci && co && new Date(co) <= new Date(ci)) { showNotif('⚠️ Check-out must be after check-in.'); return; }
 
-    mobile:
-      document.getElementById("e-phone").value.trim(),
+  var name = (fname + ' ' + lname).trim();
 
-    email:
-      document.getElementById("e-email").value.trim(),
+  // Safety copy in the database (does not block, never stops the WhatsApp message)
+  try {
+    supabaseClient.from('enquiries').insert([{
+      name: name, mobile: phone, email: email,
+      check_in: ci || null, check_out: co || null,
+      room_type: room, message: msg, status: 'new'
+    }]).then(function(r){ if (r && r.error) console.warn('Enquiry not saved:', r.error.message); });
+  } catch (e) { console.warn('Enquiry not saved:', e); }
 
-    check_in:
-      document.getElementById("e-checkin").value,
+  var lines = ['*New Enquiry - The Lake House Kodaikanal*', '', 'Name: ' + name];
+  if (phone) lines.push('Phone: ' + phone);
+  if (email) lines.push('Email: ' + email);
+  if (ci)    lines.push('Check-in: ' + ci);
+  if (co)    lines.push('Check-out: ' + co);
+  if (room)  lines.push('Room: ' + room);
+  if (msg)   lines.push('Message: ' + msg);
 
-    check_out:
-      document.getElementById("e-checkout").value,
+  var url = 'https://wa.me/' + ENQUIRY_WHATSAPP + '?text=' + encodeURIComponent(lines.join('\n'));
+  window.open(url, '_blank', 'noopener');
+  showNotif('✅ Opening WhatsApp — just press Send to complete your enquiry.');
 
-    room_type:
-      document.getElementById("e-room").value,
-
-    message:
-      document.getElementById("e-message").value.trim(),
-
-    status: "new"
-  };
-
-  const { error } = await supabaseClient
-    .from("enquiries")
-    .insert([enquiryData]);
-
-  if(error){
-    console.error(error);
-    showNotif("❌ Failed to send enquiry");
-    return;
-  }
-
-  showNotif("✅ Enquiry sent successfully");
-
-  document.getElementById("e-fname").value="";
-  document.getElementById("e-lname").value="";
-  document.getElementById("e-email").value="";
-  document.getElementById("e-phone").value="";
-  document.getElementById("e-checkin").value="";
-  document.getElementById("e-checkout").value="";
-  document.getElementById("e-message").value="";
+  ['e-fname','e-lname','e-email','e-phone','e-checkin','e-checkout','e-message'].forEach(function(id){
+    var e = document.getElementById(id); if (e) e.value = '';
+  });
 }
 
 // ══ SUGGEST ATTRACTION ══
@@ -2497,8 +2238,8 @@ window.addEventListener('DOMContentLoaded',function(){
   var t=new Date(),t1=new Date(t),t2=new Date(t);
   t1.setDate(t1.getDate()+1);t2.setDate(t2.getDate()+3);
   var f=function(d){return d.toISOString().split('T')[0];};
-  ['checkin','b-checkin'].forEach(function(id){var e=document.getElementById(id);if(e)e.value=f(t1);});
-  ['checkout','b-checkout'].forEach(function(id){var e=document.getElementById(id);if(e)e.value=f(t2);});
+  ['checkin'].forEach(function(id){var e=document.getElementById(id);if(e)e.value=f(t1);});
+  ['checkout'].forEach(function(id){var e=document.getElementById(id);if(e)e.value=f(t2);});
 });
 
 // ══ JSON-LD SEO ══
@@ -2512,7 +2253,7 @@ sc.textContent=JSON.stringify({
   "amenityFeature":[{"@type":"LocationFeatureSpecification","name":"Complimentary Breakfast","value":true}],
   "address":{"@type":"PostalAddress","streetAddress":"5/82 A2, Rifle Range Road, Naidupuram",
   "addressLocality":"Kodaikanal","addressRegion":"Tamil Nadu","postalCode":"624101","addressCountry":"IN"},
-  "starRating":{"@type":"Rating","ratingValue":"4"},
+  "starRating":{"@type":"Rating","ratingValue":"3"},
   "aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"500"},
   "hasMap":"https://maps.app.goo.gl/aMSgV5rJzkdBr65C8"
 });
@@ -2562,7 +2303,7 @@ const supabaseClient = supabase.createClient(
   });
 
   // ── TOUCH SWIPE — Rooms & Suites only ──
-['slide-suite', 'slide-family', 'slide-quad'].forEach(function(id) {
+['slide-suite', 'slide-family', 'slide-quad', 'slide-studio', 'slide-gym'].forEach(function(id) {
   const slideshow = document.getElementById(id);
   if (!slideshow) return;
 
@@ -2593,31 +2334,48 @@ const supabaseClient = supabase.createClient(
 
 // ══ LIGHTBOX / GALLERY ══
 var galleryItems = [
-  { type: 'image', src: 'images/nightview.webp',      label: 'Night View' },
-  { type: 'image', src: 'images/exterior.webp',       label: 'Exterior' },
-  { type: 'image', src: 'images/bedroom.webp',        label: 'Bedroom' },
-  { type: 'image', src: 'images/reception.webp',      label: 'Reception' },
-  { type: 'image', src: 'images/mountainview-2.webp', label: 'Mountain View' },
-  { type: 'image', src: 'images/family-1.webp',       label: 'Bedroom' },
-  { type: 'image', src: 'images/family-4.webp',       label: 'Bedroom' },
-  { type: 'image', src: 'images/family-3.webp',       label: 'Bedroom' },
-  { type: 'image', src: 'images/family-5.webp',       label: 'Balcony View' },
-  { type: 'image', src: 'images/family-6.webp',       label: 'Restroom' },
-  { type: 'image', src: 'images/quad-1.webp',         label: 'Bedroom' },
-  { type: 'image', src: 'images/quad-2.webp',         label: 'Bedroom' },
-  { type: 'image', src: 'images/quad-3.webp',         label: 'Restroom' },
-  { type: 'image', src: 'images/suite-1.webp',        label: 'Bedroom' },
-  { type: 'image', src: 'images/suite-2.webp',        label: 'Bedroom' },
-  { type: 'image', src: 'images/suite-3.webp',        label: 'Bedroom' },
-  { type: 'image', src: 'images/suite-4.webp',        label: 'Bedroom' },
-  { type: 'image', src: 'images/suite-6.webp',        label: 'Bedroom' },
-  { type: 'image', src: 'images/suite-7.webp',        label: 'Restroom' },
-  { type: 'image', src: 'images/balconyview-1.webp',  label: 'Balconyview' },
-  { type: 'image', src: 'images/balconyview-2.webp',  label: 'Balconyview' },
-  { type: 'video', src: 'images/tlh-video1.mp4',      label: 'video' },
-  { type: 'video', src: 'images/tlh-video2.mp4',      label: 'video' },
+  { type: 'image', cat: 'hotel', src: 'images/nightview.webp', label: 'Night View' },
+  { type: 'image', cat: 'hotel', src: 'images/exterior.webp', label: 'Exterior' },
+  { type: 'image', cat: 'hotel', src: 'images/reception.webp', label: 'Reception' },
+  { type: 'image', cat: 'hotel', src: 'images/studio-1.webp', label: 'Studio Suite' },
+  { type: 'image', cat: 'hotel', src: 'images/gym-1.webp', label: 'Gym' },
+  { type: 'image', cat: 'suite', src: 'images/suite-1.webp', label: 'Bedroom' },
+  { type: 'image', cat: 'suite', src: 'images/suite-2.webp', label: 'Bedroom' },
+  { type: 'image', cat: 'suite', src: 'images/suite-3.webp', label: 'Bedroom' },
+  { type: 'image', cat: 'suite', src: 'images/suite-4.webp', label: 'Bedroom' },
+  { type: 'image', cat: 'suite', src: 'images/suite-5.webp', label: 'Bedroom' },
+  { type: 'image', cat: 'suite', src: 'images/suite-6.webp', label: 'Bedroom' },
+  { type: 'image', cat: 'suite', src: 'images/mountainview-2.webp', label: 'Balcony View' },
+  { type: 'image', cat: 'suite', src: 'images/suite-7.webp', label: 'Restroom' },
+  { type: 'image', cat: 'family', src: 'images/family-1.webp', label: 'Bedroom' },
+  { type: 'image', cat: 'family', src: 'images/family-2.webp', label: 'Bedroom' },
+  { type: 'image', cat: 'family', src: 'images/family-3.webp', label: 'Bedroom' },
+  { type: 'image', cat: 'family', src: 'images/family-4.webp', label: 'Bedroom' },
+  { type: 'image', cat: 'family', src: 'images/family-5.webp', label: 'Balcony View' },
+  { type: 'image', cat: 'family', src: 'images/family-6.webp', label: 'Restroom' },
+  { type: 'image', cat: 'quad', src: 'images/quad-1.webp', label: 'Bedroom' },
+  { type: 'image', cat: 'quad', src: 'images/quad-2.webp', label: 'Bedroom' },
+  { type: 'image', cat: 'quad', src: 'images/quad-3.webp', label: 'Restroom' },
+  { type: 'image', cat: 'studio', src: 'images/studio-1.webp', label: 'Studio Suite' },
+  { type: 'image', cat: 'studio', src: 'images/studio-2.webp', label: 'Studio Suite' },
+  { type: 'image', cat: 'studio', src: 'images/studio-3.webp', label: 'Studio Suite' },
+  { type: 'image', cat: 'studio', src: 'images/studio-4.webp', label: 'Studio Suite' },
+  { type: 'image', cat: 'studio', src: 'images/studio-5.webp', label: 'Restroom' },
+  { type: 'image', cat: 'studio', src: 'images/studio-6.webp', label: 'Studio Suite' },
+  { type: 'image', cat: 'gym', src: 'images/gym-1.webp', label: 'Fitness Gym' },
+  { type: 'image', cat: 'gym', src: 'images/gym-2.webp', label: 'Fitness Gym' },
+  { type: 'image', cat: 'gym', src: 'images/gym-3.webp', label: 'Fitness Gym' },
+  { type: 'image', cat: 'gym', src: 'images/gym-4.webp', label: 'Fitness Gym' },
+  { type: 'image', cat: 'mountain', src: 'images/mountainview-1.webp', label: 'Mountain View' },
+  { type: 'image', cat: 'mountain', src: 'images/mountainview-2.webp', label: 'Mountain View' },
+  { type: 'image', cat: 'mountain', src: 'images/balconyview-1.webp', label: 'Balcony View' },
+  { type: 'image', cat: 'mountain', src: 'images/balconyview-2.webp', label: 'Balcony View' },
+  { type: 'video', cat: 'videos', src: 'images/tlh-video1.mp4', label: 'Video' },
+  { type: 'video', cat: 'videos', src: 'images/tlh-video2.mp4', label: 'Video' },
+  { type: 'video', cat: 'videos', src: 'images/tlh-video3.mp4', label: 'Video' },
+  { type: 'video', cat: 'videos', src: 'images/tlh-video4.mp4', label: 'Video' },
 ];
-
+var allGalleryItems = galleryItems.slice();
 var lbIndex = 0;
 
 function openGallery(index) {
@@ -2630,7 +2388,8 @@ function openGallery(index) {
 
 function closeLightbox() {
   document.getElementById('lightbox').classList.remove('active');
-  document.body.style.overflow = '';
+  galleryItems = allGalleryItems;
+  document.body.style.overflow = document.getElementById('gallery-modal').classList.contains('active') ? 'hidden' : '';
   var vid = document.getElementById('lb-video');
   vid.pause(); vid.src = '';
 }
@@ -2707,11 +2466,108 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape')     closeLightbox();
 });
 
+
+// ══ GALLERY MODAL (tabs by category) ══
+var GALLERY_TABS = [
+  { key: 'all',      label: 'All' },
+  { key: 'hotel',    label: 'Hotel' },
+  { key: 'suite',    label: 'Suite Room' },
+  { key: 'family',   label: 'Family Room' },
+  { key: 'quad',     label: 'Quadruple Room' },
+  { key: 'studio',   label: 'Studio Room' },
+  { key: 'gym',      label: 'Gym' },
+  { key: 'mountain', label: 'Mountain View' },
+  { key: 'videos',   label: 'Videos' }
+];
+var gmCurrent = 'all';
+
+function gmItems(cat) {
+  return cat === 'all' ? allGalleryItems : allGalleryItems.filter(function(i){ return i.cat === cat; });
+}
+
+function openGalleryModal(cat) {
+  gmCurrent = cat || 'all';
+  var tabs = document.getElementById('gm-tabs');
+  tabs.innerHTML = '';
+  GALLERY_TABS.forEach(function(t) {
+    var n = gmItems(t.key).length;
+    if (!n) return;
+    var b = document.createElement('button');
+    b.className = 'gm-tab' + (t.key === gmCurrent ? ' active' : '');
+    b.setAttribute('data-cat', t.key);
+    b.innerHTML = t.label + '<span>' + n + '</span>';
+    b.onclick = function(){ renderGalleryGrid(t.key); };
+    tabs.appendChild(b);
+  });
+  renderGalleryGrid(gmCurrent);
+  document.getElementById('gallery-modal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeGalleryModal() {
+  document.getElementById('gallery-modal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function renderGalleryGrid(cat) {
+  gmCurrent = cat;
+  var items = gmItems(cat);
+  var grid  = document.getElementById('gm-grid');
+  var empty = document.getElementById('gm-empty');
+  grid.innerHTML = '';
+  empty.style.display = 'none';
+  document.querySelectorAll('#gm-tabs .gm-tab').forEach(function(b){
+    b.classList.toggle('active', b.getAttribute('data-cat') === cat);
+  });
+  document.getElementById('gm-count').textContent = items.length + (items.length === 1 ? ' item' : ' items');
+  document.querySelector('#gallery-modal .gm-body').scrollTop = 0;
+
+  items.forEach(function(item, i) {
+    var el = document.createElement('div');
+    el.className = 'gm-item';
+    if (item.type === 'video') {
+      el.innerHTML = '<video src="' + item.src + '#t=0.5" preload="metadata" muted playsinline></video><div class="gm-play"><i class="ti ti-player-play"></i></div>';
+    } else {
+      var img = document.createElement('img');
+      img.src = item.src; img.alt = item.label; img.loading = 'lazy';
+      img.onerror = function() {           // missing file -> hide the tile
+        el.remove();
+        if (!grid.children.length) empty.style.display = 'block';
+      };
+      el.appendChild(img);
+    }
+    var lab = document.createElement('div');
+    lab.className = 'gm-label';
+    lab.textContent = item.label;
+    el.appendChild(lab);
+    el.onclick = function(){ galleryItems = items; openGallery(i); };
+    grid.appendChild(el);
+  });
+}
+
+// Open one specific photo (from the 5 tiles on the page) in the full viewer
+function openGalleryBySrc(src) {
+  galleryItems = allGalleryItems;
+  var idx = allGalleryItems.findIndex(function(i){ return i.src === src; });
+  openGallery(idx < 0 ? 0 : idx);
+}
+
+var gmLbWasOpen = false;
+document.addEventListener('keydown', function(e) {          // capture: remember if the viewer was open
+  if (e.key === 'Escape') gmLbWasOpen = document.getElementById('lightbox').classList.contains('active');
+}, true);
+document.addEventListener('keydown', function(e) {
+  if (e.key !== 'Escape' || gmLbWasOpen) return;            // Esc inside the viewer only closes the viewer
+  if (document.getElementById('gallery-modal').classList.contains('active')) closeGalleryModal();
+});
+
 // ══ ROOM IMAGE ZOOM ══
 var roomImages = {
   suite:  ['images/suite-1.webp','images/suite-2.webp','images/suite-3.webp','images/suite-4.webp','images/suite-5.webp','images/suite-6.webp','images/suite-7.webp'],
   family: ['images/family-1.webp','images/family-2.webp','images/family-3.webp','images/family-4.webp','images/family-5.webp','images/family-6.webp'],
-  quad:   ['images/quad-1.webp','images/quad-2.webp','images/quad-3.webp']
+  quad:   ['images/quad-1.webp','images/quad-2.webp','images/quad-3.webp'],
+  studio: ['images/studio-1.webp','images/studio-2.webp','images/studio-3.webp','images/studio-4.webp'],
+  gym:    ['images/gym-1.webp','images/gym-2.webp','images/gym-3.webp']
 };
 
 function openRoomLightbox(roomKey, event) {
@@ -2779,20 +2635,7 @@ function openRoomLightbox(roomKey, event) {
 })();
 
 // ══ AVAILABILITY CHECK ══
-// URL of your Razorpay backend (server.js). Update for production.
-var BACKEND_URL = 'https://lakehouse-backend-n56n.onrender.com';
-
-var SUPABASE_URL = 'https://qipxsmsoyncfdwrczobe.supabase.co';
-var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFpcHhzbXNveW5jZmR3cmN6b2JlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQwOTc0MDksImV4cCI6MjA5OTY3MzQwOX0.A5dLeo5lYeNJyJ1hWP_QSh2wkwndbSd645FBX9IYsDg';
-;
-
-var ROOM_INFO = {
-  'suite with mountain view':    { label: 'Suite with Mountain View',    icon: 'ti-mountain', guests: 3 },
-  'family room with balcony':    { label: 'Family Room with Balcony',    icon: 'ti-home-2',   guests: 3 },
-  'quadruple room with balcony': { label: 'Quadruple Room with Balcony', icon: 'ti-users',    guests: 4 }
-};
-
-// Check Availability now sends guests to the Stayflexi booking engine,
+// Check Availability sends guests to the Stayflexi booking engine,
 // the single source of truth for live rates and availability.
 function checkAvailability() {
   var checkin  = document.getElementById('checkin').value;
@@ -2801,123 +2644,6 @@ function checkAvailability() {
     alert('Check-out must be after check-in.'); return;
   }
   openBooking();
-}
-
-// Old Supabase-based availability check (no longer used)
-async function checkAvailabilityLegacy() {
-  var checkin    = document.getElementById('checkin').value;
-  var checkout   = document.getElementById('checkout').value;
-  var roomFilter = document.getElementById('bar-room').value.toLowerCase();
-
-  if (!checkin || !checkout) { alert('Please select check-in and check-out dates.'); return; }
-
-  var todayStr = new Date().toISOString().slice(0,10);
-  if (checkin < todayStr) { alert('Please select a current or future check-in date.'); return; }
-  if (new Date(checkout) <= new Date(checkin)) { alert('Check-out must be after check-in.'); return; }
-
-  var btn = document.querySelector('.btn-search');
-  btn.innerHTML = '<i class="ti ti-loader-2"></i> Checking...';
-  btn.disabled = true;
-
-  try {
-    // Fetch all rooms
-    var roomsRes = await fetch(SUPABASE_URL + '/rest/v1/rooms?select=*', {
-      headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
-    });
-    var rooms = await roomsRes.json();
-
-    // Fetch bookings that OVERLAP with selected dates from bookings table
-    // Overlap condition: booking checkin < our checkout AND booking checkout > our checkin
-    var bookingsRes = await fetch(
-      SUPABASE_URL + '/rest/v1/bookings?select=room_type,check_in,check_out&check_in=lt.' + checkout + '&check_out=gt.' + checkin,
-      { headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY } }
-    );
-    var bookings = await bookingsRes.json();
-
-    // Count how many bookings exist per room in that date range
-    var bookedCountPerRoom = {};
-    bookings.forEach(function(b) {
-      var key = (b.room_type || '').toLowerCase();
-      bookedCountPerRoom[key] = (bookedCountPerRoom[key] || 0) + 1;
-    });
-
-    // Filter by selected room type
-    if (roomFilter !== 'any' && roomFilter !== 'any room') {
-      rooms = rooms.filter(function(r) { return r.room_name.toLowerCase() === roomFilter; });
-    }
-
-    var checkinDate  = new Date(checkin);
-    var checkoutDate = new Date(checkout);
-    var nights = Math.round((checkoutDate - checkinDate) / (1000*60*60*24));
-
-    var container = document.getElementById('avail-cards');
-    var header    = document.getElementById('avail-header');
-    container.innerHTML = '';
-
-    var checkinStr  = new Date(checkin).toLocaleDateString('en-IN', { day:'numeric', month:'short' });
-    var checkoutStr = new Date(checkout).toLocaleDateString('en-IN', { day:'numeric', month:'short' });
-    header.innerHTML = 'Showing rooms for <strong>' + checkinStr + ' – ' + checkoutStr + '</strong> &nbsp;·&nbsp; ' + nights + ' night' + (nights > 1 ? 's' : '');
-
-    rooms.forEach(function(room) {
-      var key            = room.room_name.toLowerCase();
-      var info           = ROOM_INFO[key] || { label: room.room_name, icon: 'ti-bed', guests: 2 };
-      var bookedCount    = bookedCountPerRoom[key] || 0;
-      var availableRooms = Math.max(0, room.total_rooms - bookedCount);
-
-      var totalPrice    = '₹' + (room.price * nights).toLocaleString('en-IN');
-      var pricePerNight = '₹' + Number(room.price).toLocaleString('en-IN');
-
-      var badge, badgeStyle, borderColor;
-      if (availableRooms === 0) {
-        badge       = '✖ Sold Out';
-        badgeStyle  = 'background:rgba(220,53,69,0.1);color:#dc3545;border:1px solid rgba(220,53,69,0.25);';
-        borderColor = 'rgba(220,53,69,0.2)';
-      } else if (availableRooms === 1) {
-        badge       = '⚠ Only 1 Room Left!';
-        badgeStyle  = 'background:rgba(255,140,0,0.1);color:#e67e00;border:1px solid rgba(255,140,0,0.3);';
-        borderColor = 'rgba(255,140,0,0.3)';
-      } else {
-        badge       = '✔ ' + availableRooms + ' Rooms Available';
-        badgeStyle  = 'background:rgba(46,160,67,0.12);color:#2ea043;border:1px solid rgba(46,160,67,0.3);';
-        borderColor = 'rgba(46,160,67,0.3)';
-      }
-
-      var bookBtn = availableRooms > 0
-        ? '<button onclick="openBookingRoom(\'' + info.label + '\')" style="background:var(--gold);color:var(--navy);border:none;padding:10px 18px;border-radius:8px;font-family:Jost,sans-serif;font-weight:700;font-size:0.82rem;cursor:pointer;text-transform:uppercase;letter-spacing:0.05em;white-space:nowrap;">Book Now</button>'
-        : '<button disabled style="background:var(--cream-dark);color:var(--text-light);border:1px solid var(--border);padding:10px 18px;border-radius:8px;font-family:Jost,sans-serif;font-weight:700;font-size:0.82rem;cursor:not-allowed;text-transform:uppercase;white-space:nowrap;">Unavailable</button>';
-
-      var card = document.createElement('div');
-      card.style.cssText = 'background:var(--card-bg);border:1px solid ' + borderColor + ';border-radius:12px;padding:1.3rem;display:flex;flex-direction:column;gap:0.8rem;';
-      card.innerHTML =
-        '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">' +
-          '<div style="font-family:Playfair Display,serif;font-size:1rem;font-weight:700;color:var(--text-dark);">' + info.label + '</div>' +
-          '<span style="font-size:0.7rem;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap;flex-shrink:0;' + badgeStyle + '">' + badge + '</span>' +
-        '</div>' +
-        '<div style="display:flex;gap:1.2rem;font-size:0.8rem;color:var(--text-light);">' +
-          '<span><i class="ti ti-users"></i> Max ' + info.guests + ' guests</span>' +
-          '<span><i class="ti ti-egg-fried"></i> Breakfast included</span>' +
-        '</div>' +
-        '<div style="display:flex;justify-content:space-between;align-items:center;">' +
-          '<div>' +
-            '<div style="font-size:0.8rem;color:var(--text-light);">' + pricePerNight + ' / night</div>' +
-            '<div style="font-size:1.05rem;font-weight:700;color:var(--gold);">' + totalPrice + ' total</div>' +
-          '</div>' +
-          bookBtn +
-        '</div>';
-
-      container.appendChild(card);
-    });
-
-    document.getElementById('avail-results').style.display = 'block';
-    document.getElementById('avail-results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-
-  } catch(err) {
-    alert('Could not fetch availability. Please try again.');
-    console.error(err);
-  }
-
-  btn.innerHTML = '<i class="ti ti-search"></i> Check Availability';
-  btn.disabled = false;
 }
 
 /* ══════════════════════════════════════
@@ -2961,8 +2687,7 @@ async function checkAvailabilityLegacy() {
     '.section-subtitle',
     '#booking-bar',
     '.checkin-strip',
-    '.footer-grid > *',
-    '#avail-results'
+    '.footer-grid > *'
   ];
 
   selectors.forEach(function(sel){
